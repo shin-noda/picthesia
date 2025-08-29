@@ -37,7 +37,7 @@ export class WikipediaService {
             title: page.title,
             url: info.thumburl,
             description: info.extmetadata?.ImageDescription?.value || '',
-            sourcePage: `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(page.title)}`,
+            sourcePage: `https://commons.wikimedia.org/wiki/${encodeURIComponent(page.title)}`,
           };
         })
         .filter(Boolean) as WikimediaImage[];
