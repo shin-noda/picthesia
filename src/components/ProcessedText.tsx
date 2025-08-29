@@ -74,7 +74,7 @@ const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
                 ))
               ) : (
                 <div className="image-placeholder text-gray-500 text-xs col-span-2">
-                  No images found
+                  Loading...
                 </div>
               )}
             </div>
