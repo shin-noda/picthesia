@@ -206,7 +206,7 @@ html, body {
 
 .image-preview {
   position: absolute;
-  bottom: 100%;
+  bottom: 100%;          /* show above the word */
   left: 50%;
   transform: translateX(-50%);
   background: white;
@@ -215,11 +215,15 @@ html, body {
   padding: 15px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   min-width: 200px;
+  max-width: 300px;       /* fixed max width */
+  max-height: 400px;      /* fixed max height */
+  overflow-y: auto;       /* scroll if content is too tall */
   text-align: center;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 1000;
+  margin-bottom: 5px;     /* small gap from the word */
 }
 
 .word-container:hover .image-preview {

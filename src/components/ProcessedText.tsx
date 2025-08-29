@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { WikipediaService, type WikimediaImage } from '../services/wikipediaService';
 
+import PicsDefWindow from './PicsDefWindow';
+
 interface ProcessedTextProps {
   text: string;
+}
+
+// Definition cache type
+interface DefinitionCache {
+  [word: string]: string | null;
 }
 
 const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});
   const [loadingWords, setLoadingWords] = useState<Record<string, boolean>>({});
+  const [definitionCache, setDefinitionCache] = useState<DefinitionCache>({});
+
+  // Helper to update cache
+  const setCache = (word: string, def: string) => {
+    setDefinitionCache((prev) => ({ ...prev, [word]: def }));
+  };
 
   useEffect(() => {
     if (!text) return;
@@ -38,7 +51,7 @@ const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
         })
       );
 
-      setImages({ ...images, ...newImages });
+      setImages((prev) => ({ ...prev, ...newImages }));
     };
 
     fetchImages();
@@ -55,29 +68,7 @@ const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
         {words.map((word, index) => (
           <span key={index} className="word-container flex flex-col items-center">
             <span className="underlined-word font-semibold underline">{word}</span>
-            <div className="image-preview mt-2 grid grid-cols-2 gap-2">
-              {loadingWords[word] ? (
-                <div className="image-placeholder text-gray-500 text-xs col-span-2">
-                  Generating...
-                </div>
-              ) : images[word]?.length > 0 ? (
-                images[word].map((img, i) => (
-                  <a
-                    key={i}
-                    href={img.sourcePage}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={img.title || word}
-                  >
-                    <img src={img.url} alt={img.title || word} className="word-image" />
-                  </a>
-                ))
-              ) : (
-                <div className="image-placeholder text-gray-500 text-xs col-span-2">
-                  Loading...
-                </div>
-              )}
-            </div>
+            <PicsDefWindow word={word} images={images[word]} />
           </span>
         ))}
       </div>
