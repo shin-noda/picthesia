@@ -12,7 +12,6 @@ const Privacy: React.FC = () => {
         
         <div className="page-header">
           <h1>Privacy Policy</h1>
-          <p className="last-updated">Last updated: {new Date().toLocaleDateString()}</p>
         </div>
 
         <div className="page-body">
@@ -66,15 +65,6 @@ const Privacy: React.FC = () => {
               <li>Request deletion of your personal information</li>
               <li>Withdraw consent for data processing</li>
             </ul>
-          </section>
-
-          <section>
-            <h2>6. Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-            <div className="contact-info">
-              <p>Email: privacy@picthesia.com</p>
-              <p>Address: Picthesia Privacy Team</p>
-            </div>
           </section>
         </div>
       </div>

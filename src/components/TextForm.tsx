@@ -4,8 +4,21 @@ interface TextFormProps {
   onSubmit: (text: string) => void;
 }
 
+const MAX_WORDS = 250;
+
 const TextForm: React.FC<TextFormProps> = ({ onSubmit }) => {
   const [text, setText] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputText = e.target.value;
+    const words = inputText.split(/\s+/); // split by spaces, tabs, newlines
+    if (words.filter(Boolean).length <= MAX_WORDS) {
+      setText(inputText);
+    } else {
+      // optionally truncate to max words
+      setText(words.slice(0, MAX_WORDS).join(' '));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,18 +27,23 @@ const TextForm: React.FC<TextFormProps> = ({ onSubmit }) => {
     }
   };
 
+  const wordCount = text.trim() ? text.trim().split(/\s+/).filter(Boolean).length : 0;
+
   return (
     <div className="text-form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <textarea
             value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Enter your text here... (e.g., Cats dogs cows)"
+            onChange={handleChange}
+            placeholder={`Enter your text here... (max ${MAX_WORDS} words)`}
             className="text-input"
             rows={4}
             required
           />
+          <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
+            {wordCount}/{MAX_WORDS} words
+          </div>
         </div>
         <button type="submit" className="submit-button">
           Generate Picthesia

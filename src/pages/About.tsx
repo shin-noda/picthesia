@@ -12,7 +12,6 @@ const About: React.FC = () => {
         
         <div className="page-header">
           <h1>About Picthesia</h1>
-          <p className="tagline">Transforming education through visual learning</p>
         </div>
 
         <div className="page-body">
@@ -97,16 +96,6 @@ const About: React.FC = () => {
               <li><strong>Spread the Word:</strong> Share Picthesia with educators, students, and learners</li>
               <li><strong>Stay Updated:</strong> Follow our progress as we add new features and improvements</li>
             </ul>
-          </section>
-
-          <section>
-            <h2>Contact Us</h2>
-            <p>Have questions, suggestions, or want to learn more? We'd love to hear from you!</p>
-            <div className="contact-info">
-              <p>Email: hello@picthesia.com</p>
-              <p>For support: <Link to="/contact">Contact Us</Link></p>
-              <p>Learn about our policies: <Link to="/privacy">Privacy Policy</Link> | <Link to="/terms">Terms of Use</Link></p>
-            </div>
           </section>
         </div>
       </div>

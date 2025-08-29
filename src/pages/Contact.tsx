@@ -36,7 +36,6 @@ const Contact: React.FC = () => {
         
         <div className="page-header">
           <h1>Contact Us</h1>
-          <p className="tagline">Get in touch with our team</p>
         </div>
 
         <div className="page-body">

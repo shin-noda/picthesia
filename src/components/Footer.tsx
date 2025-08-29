@@ -20,8 +20,6 @@ const Footer: React.FC = () => {
           <p>&copy; {currentYear} Picthesia. All rights reserved.</p>
           <div className="footer-bottom-links">
             <span>Powered by Wikipedia & AI</span>
-            <span className="separator">•</span>
-            <span>Made with ❤️ for education</span>
           </div>
         </div>
       </div>

@@ -12,7 +12,6 @@ const Terms: React.FC = () => {
         
         <div className="page-header">
           <h1>Terms of Use</h1>
-          <p className="last-updated">Last updated: {new Date().toLocaleDateString()}</p>
         </div>
 
         <div className="page-body">
@@ -87,16 +86,6 @@ const Terms: React.FC = () => {
               <li>Major changes will be communicated through the service or email</li>
               <li>Users are responsible for reviewing terms regularly</li>
             </ul>
-          </section>
-
-          <section>
-            <h2>8. Contact Information</h2>
-            <p>If you have questions about these Terms of Use, please contact us:</p>
-            <div className="contact-info">
-              <p>Email: legal@picthesia.com</p>
-              <p>Address: Picthesia Legal Team</p>
-              <p>For general inquiries: <Link to="/contact">Contact Us</Link></p>
-            </div>
           </section>
         </div>
       </div>
