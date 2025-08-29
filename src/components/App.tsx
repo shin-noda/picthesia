@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import TextForm from './TextForm';
 import ProcessedText from './ProcessedText';
 import Footer from './Footer';
@@ -9,41 +9,55 @@ import About from '../pages/About';
 import Contact from '../pages/Contact';
 import './App.css';
 
-const App: React.FC = () => {
+// Keep Home simple — no need for useLocation inside it anymore
+const Home: React.FC<{ submittedText: string; onSubmit: (text: string) => void }> = ({ submittedText, onSubmit }) => {
+  return (
+    <>
+      <header className="app-header">
+        <h1>Picthesia</h1>
+        <p>Transform text into visual learning with images</p>
+      </header>
+      <main className="app-main">
+        <TextForm onSubmit={onSubmit} />
+        <ProcessedText text={submittedText} />
+      </main>
+    </>
+  );
+};
+
+const AppContent: React.FC = () => {
+  const location = useLocation();
   const [submittedText, setSubmittedText] = useState<string>('');
 
   const handleTextSubmit = (text: string) => {
     setSubmittedText(text);
   };
 
+  // Clear submittedText whenever the route changes away from home
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setSubmittedText('');
+    }
+  }, [location.pathname]);
+
   return (
-    <Router>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={
-            <>
-              <header className="app-header">
-                <h1>Picthesia</h1>
-                <p>Transform text into visual learning with images</p>
-              </header>
-              
-              <main className="app-main">
-                <TextForm onSubmit={handleTextSubmit} />
-                <ProcessedText text={submittedText} />
-              </main>
-            </>
-          } />
-          
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-        
-        <Footer />
-      </div>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home submittedText={submittedText} onSubmit={handleTextSubmit} />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+    </Routes>
   );
 };
+
+const App: React.FC = () => (
+  <Router>
+    <div className="app">
+      <AppContent />
+      <Footer />
+    </div>
+  </Router>
+);
 
 export default App;

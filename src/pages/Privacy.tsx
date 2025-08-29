@@ -16,7 +16,7 @@ const Privacy: React.FC = () => {
 
         <div className="page-body">
           <section>
-            <h2>1. Information We Collect</h2>
+            <h2>Information We Collect</h2>
             <p>Picthesia is committed to protecting your privacy. We collect minimal information necessary to provide our service:</p>
             <ul>
               <li><strong>Text Input:</strong> The text you submit to generate images</li>
@@ -26,7 +26,7 @@ const Privacy: React.FC = () => {
           </section>
 
           <section>
-            <h2>2. How We Use Your Information</h2>
+            <h2>How We Use Your Information</h2>
             <p>We use the collected information to:</p>
             <ul>
               <li>Process your text and generate relevant images</li>
@@ -37,7 +37,7 @@ const Privacy: React.FC = () => {
           </section>
 
           <section>
-            <h2>3. Third-Party Services</h2>
+            <h2>Third-Party Services</h2>
             <p>Picthesia integrates with:</p>
             <ul>
               <li><strong>Wikipedia API:</strong> To fetch educational images</li>
@@ -47,7 +47,7 @@ const Privacy: React.FC = () => {
           </section>
 
           <section>
-            <h2>4. Data Storage and Security</h2>
+            <h2>Data Storage and Security</h2>
             <p>We implement appropriate security measures to protect your information:</p>
             <ul>
               <li>Text input is processed in real-time and not permanently stored</li>
@@ -57,7 +57,7 @@ const Privacy: React.FC = () => {
           </section>
 
           <section>
-            <h2>5. Your Rights</h2>
+            <h2>Your Rights</h2>
             <p>You have the right to:</p>
             <ul>
               <li>Access any personal information we hold about you</li>

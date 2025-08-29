@@ -16,12 +16,12 @@ const Terms: React.FC = () => {
 
         <div className="page-body">
           <section>
-            <h2>1. Acceptance of Terms</h2>
+            <h2>Acceptance of Terms</h2>
             <p>By accessing and using Picthesia, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
           </section>
 
           <section>
-            <h2>2. Description of Service</h2>
+            <h2>Description of Service</h2>
             <p>Picthesia is an educational tool that transforms text into visual learning experiences by:</p>
             <ul>
               <li>Processing user-submitted text and underlining individual words</li>
@@ -32,7 +32,7 @@ const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2>3. User Responsibilities</h2>
+            <h2>User Responsibilities</h2>
             <p>As a user of Picthesia, you agree to:</p>
             <ul>
               <li>Use the service for educational and lawful purposes only</li>
@@ -44,7 +44,7 @@ const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2>4. Content and Intellectual Property</h2>
+            <h2>Content and Intellectual Property</h2>
             <p>Picthesia respects intellectual property rights:</p>
             <ul>
               <li><strong>Wikipedia Content:</strong> Images and content from Wikipedia are subject to their respective licenses and terms</li>
@@ -55,7 +55,7 @@ const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2>5. Service Availability</h2>
+            <h2>Service Availability</h2>
             <p>We strive to maintain high service availability, but Picthesia is provided "as is" without warranties:</p>
             <ul>
               <li>Service may be temporarily unavailable due to maintenance or technical issues</li>
@@ -66,7 +66,7 @@ const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2>6. Limitation of Liability</h2>
+            <h2>Limitation of Liability</h2>
             <p>Picthesia and its operators are not liable for:</p>
             <ul>
               <li>Any damages arising from the use or inability to use the service</li>
@@ -78,7 +78,7 @@ const Terms: React.FC = () => {
           </section>
 
           <section>
-            <h2>7. Changes to Terms</h2>
+            <h2>Changes to Terms</h2>
             <p>We may update these terms from time to time:</p>
             <ul>
               <li>Changes will be posted on this page with updated dates</li>

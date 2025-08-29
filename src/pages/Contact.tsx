@@ -40,32 +40,6 @@ const Contact: React.FC = () => {
 
         <div className="page-body">
           <section>
-            <h2>Get in Touch</h2>
-            <div className="contact-grid">
-              <div className="contact-methods">
-                <div className="contact-method">
-                  <h3>General Inquiries</h3>
-                  <p>hello@picthesia.com</p>
-                </div>
-                <div className="contact-method">
-                  <h3>Technical Support</h3>
-                  <p>support@picthesia.com</p>
-                </div>
-                <div className="contact-method">
-                  <h3>Partnerships</h3>
-                  <p>partnerships@picthesia.com</p>
-                </div>
-              </div>
-              
-              <div className="response-time">
-                <h3>Response Time</h3>
-                <p>We typically respond within 24-48 hours during business days.</p>
-              </div>
-            </div>
-          </section>
-
-          <section>
-            <h2>Send us a Message</h2>
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name *</label>

@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { WikipediaService, type WikimediaImage } from '../services/wikipediaService';
-
 import PicsDefWindow from './PicsDefWindow';
 
 interface ProcessedTextProps {
   text: string;
 }
 
-// Definition cache type
-interface DefinitionCache {
-  [word: string]: string | null;
-}
-
 const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});
   const [loadingWords, setLoadingWords] = useState<Record<string, boolean>>({});
-  const [definitionCache, setDefinitionCache] = useState<DefinitionCache>({});
-
-  // Helper to update cache
-  const setCache = (word: string, def: string) => {
-    setDefinitionCache((prev) => ({ ...prev, [word]: def }));
-  };
 
   useEffect(() => {
-    if (!text) return;
+    if (!text) {
+      // Clear state if text is empty (e.g., after navigating away)
+      setImages({});
+      setLoadingWords({});
+      return;
+    }
 
     const words = text.split(/\s+/);
 
@@ -55,7 +48,7 @@ const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
     };
 
     fetchImages();
-  }, [text]);
+  }, [text]); // Only runs when the text prop changes
 
   if (!text) return null;
 
