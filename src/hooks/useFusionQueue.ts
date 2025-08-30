@@ -1,65 +1,57 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { GeminiService } from "../services/GeminiService";
+import { WikipediaService } from "../services/wikipediaService"; // or your image service
 import type { BallData } from "../components/toggleableBouncingContainer/types";
 
-/**
- * A custom hook for managing a queue of word fusions for "BallData" objects.
- * It uses the GeminiService to process fusions and update the balls state.
- *
- * @param {BallData[]} balls The current array of BallData objects.
- * @param {Dispatch<SetStateAction<BallData[]>>} setBalls The state setter for the balls array.
- * @returns {{ enqueueFusion: (word1: string, word2: string) => void }} An object containing the `enqueueFusion` function.
- */
-export const useFusionQueue = (
-  balls: BallData[],
-  setBalls: Dispatch<SetStateAction<BallData[]>>
-) => {
-  const [fusionQueue, setFusionQueue] = useState<[string, string][]>([]);
+interface FusionItem {
+  word1: string;
+  word2: string;
+  id: string; // placeholder ball id
+}
 
-  /**
-   * Adds a new word fusion request to the queue.
-   * @param {string} word1 The first word to fuse.
-   * @param {string} word2 The second word to fuse.
-   */
-  const enqueueFusion = (word1: string, word2: string) => {
-    setFusionQueue((prev) => [...prev, [word1, word2]]);
+export const useFusionQueue = (setBalls: Dispatch<SetStateAction<BallData[]>>) => {
+  const [queue, setQueue] = useState<FusionItem[]>([]);
+
+  const enqueueFusion = (word1: string, word2: string, id: string) => {
+    setQueue((prev) => [...prev, { word1, word2, id }]);
   };
 
-  // Process the fusion queue whenever it changes
   useEffect(() => {
-    if (fusionQueue.length === 0) {
-      return;
-    }
+    if (queue.length === 0) return;
 
     const processQueue = async () => {
-      // Process a copy of the queue to prevent a race condition with new fusions
-      const queueToProcess = [...fusionQueue];
-      setFusionQueue([]); // Clear the queue immediately
+      const q = [...queue];
+      setQueue([]);
 
-      for (const [word1, word2] of queueToProcess) {
+      for (const item of q) {
         try {
-          const fused = await GeminiService.getFusionWord(word1, word2);
+          // 1. Get fused word from Gemini
+          const fusedWord = await GeminiService.getFusionWord(item.word1, item.word2);
+          if (!fusedWord) continue;
 
-          if (fused) {
-            setBalls((prev: BallData[]) =>
-              prev.map((ball) => {
-                // If the ball's word matches either of the fused words, update it
-                if (ball.word === word1 || ball.word === word2) {
-                  console.log(`Fusion result for "${word1} + ${word2}": ${fused}`);
-                  return { ...ball, word: fused };
-                }
-                return ball;
-              })
-            );
-          }
+          const trimmedWord = fusedWord.trim();
+
+          // 2. Fetch an image for this fused word
+          const images = await WikipediaService.searchImages(trimmedWord);
+          const imgUrl = images.length > 0 ? images[0].url : undefined;
+
+          // 3. Update placeholder ball with both word and image
+          setBalls((prev) =>
+            prev.map((b) =>
+              b.id === item.id ? { ...b, word: trimmedWord, imgUrl } : b
+            )
+          );
         } catch (error) {
-          console.error(`Failed to fuse words "${word1}" and "${word2}":`, error);
+          console.error(
+            `Failed to fuse "${item.word1}" + "${item.word2}":`,
+            error
+          );
         }
       }
     };
 
     processQueue();
-  }, [fusionQueue, setBalls]);
+  }, [queue, setBalls]);
 
   return { enqueueFusion };
 };

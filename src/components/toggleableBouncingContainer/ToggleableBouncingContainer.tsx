@@ -4,10 +4,13 @@ import Ball from "../ball/Ball";
 import { useFusionQueue } from "../../hooks/useFusionQueue";
 import { useBalls } from "./useBalls";
 import { useBallCollisions } from "./useBallCollisions";
-import type { ToggleableBouncingContainerProps } from "./types";
+import type { ToggleableBouncingContainerProps, BallData } from "./types";
 import "./ToggleableBouncingContainer.css";
 
-const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({ words, images }) => {
+const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({
+  words,
+  images,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | null>(null);
 
@@ -15,17 +18,19 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
   const [showPic, setShowPic] = useState(true);
 
   const { balls, setBalls, updateWallCollisions } = useBalls(words, images);
-  const { enqueueFusion } = useFusionQueue(balls, setBalls);
-  const { handleCollisions } = useBallCollisions(enqueueFusion);
+  const { enqueueFusion } = useFusionQueue(setBalls);
+  const { handleCollisions } = useBallCollisions(enqueueFusion, setBalls);
 
   useEffect(() => {
     if (!visible) return;
 
     const animate = () => {
       if (!containerRef.current) return;
-      const { clientWidth, clientHeight } = containerRef.current;
 
-      setBalls((prev) => handleCollisions(updateWallCollisions(prev, clientWidth, clientHeight)));
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+
+      setBalls((prev) => handleCollisions(updateWallCollisions(prev, width, height)));
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -39,7 +44,10 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
   return (
     <div className="bouncing-container-wrapper">
-      <button className="toggle-button" onClick={() => setVisible((prev) => !prev)}>
+      <button
+        className="toggle-button"
+        onClick={() => setVisible((prev) => !prev)}
+      >
         {visible ? "Hide Word Balls" : "Show Word Balls"}
       </button>
 
@@ -47,7 +55,7 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
         <>
           <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
           <div className="bouncing-container" ref={containerRef}>
-            {balls.map((ball) => (
+            {balls.map((ball: BallData) => (
               <Ball
                 key={ball.id}
                 word={ball.word}
