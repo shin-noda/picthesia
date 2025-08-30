@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { WikipediaService, type WikimediaImage } from '../services/wikipediaService';
-import PicsDefWindow from './PicsDefWindow';
+import { WikipediaService, type WikimediaImage } from '../../services/wikipediaService';
+import PicsDefWindow from '../picsDefWindow/PicsDefWindow';
+import ToggleableBouncingContainer from '../toggleableBouncingContainer/ToggleableBouncingContainer';
 
 interface ProcessedTextProps {
   text: string;
@@ -55,17 +56,21 @@ const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
   const words = text.split(/\s+/);
 
   return (
-    <div className="processed-text">
-      <h3>Your Picthesia Result:</h3>
-      <div className="text-output flex flex-wrap gap-4">
-        {words.map((word, index) => (
-          <span key={index} className="word-container flex flex-col items-center">
-            <span className="underlined-word font-semibold underline">{word}</span>
-            <PicsDefWindow word={word} images={images[word]} />
-          </span>
-        ))}
+    <>
+      <div className="processed-text">
+        <h3>Your Picthesia Result:</h3>
+        <div className="text-output flex flex-wrap gap-4">
+          {words.map((word, index) => (
+            <span key={index} className="word-container flex flex-col items-center">
+              <span className="underlined-word font-semibold underline">{word}</span>
+              <PicsDefWindow word={word} images={images[word]} />
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
+
+      <ToggleableBouncingContainer words={words} images={images} />
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { type WikimediaImage } from '../services/wikipediaService';
-import WordDefinition from './WordDefinition';
+import { type WikimediaImage } from '../../services/wikipediaService';
+import WordDefinition from '../wordDefinition/WordDefinition';
 
 interface PicsDefWindowProps {
   word: string;

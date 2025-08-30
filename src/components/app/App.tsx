@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import TextForm from './TextForm';
-import ProcessedText from './ProcessedText';
-import Footer from './Footer';
-import Privacy from '../pages/Privacy';
-import Terms from '../pages/Terms';
-import About from '../pages/About';
-import Contact from '../pages/Contact';
+import TextForm from '../textForm/TextForm';
+import ProcessedText from '../processedText/ProcessedText';
+import Footer from '../footer/Footer';
+import Privacy from '../../pages/Privacy';
+import Terms from '../../pages/Terms';
+import About from '../../pages/About';
+import Contact from '../../pages/Contact';
 import './App.css';
 
 // Keep Home simple — no need for useLocation inside it anymore
