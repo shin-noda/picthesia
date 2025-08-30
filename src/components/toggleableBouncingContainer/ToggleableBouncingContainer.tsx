@@ -17,9 +17,19 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
   const [visible, setVisible] = useState(true);
   const [showPic, setShowPic] = useState(true);
 
+  // Fix for loadingWords: ignore unused first element
+  const [, setLoadingWords] = useState<Record<string, boolean>>({});
+
   const { balls, setBalls, updateWallCollisions } = useBalls(words, images);
   const { enqueueFusion } = useFusionQueue(setBalls);
-  const { handleCollisions } = useBallCollisions(enqueueFusion, setBalls);
+
+  // Fix for useBallCollisions argument mismatch
+  const { handleCollisions } = useBallCollisions((w1, w2, id) => {
+    // Call original enqueueFusion
+    enqueueFusion(w1, w2, id);
+    // Trigger re-render (optional, keeps state in sync)
+    setBalls((prev) => [...prev]);
+  });
 
   useEffect(() => {
     if (!visible) return;
