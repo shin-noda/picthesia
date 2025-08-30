@@ -1,69 +1,72 @@
-# React + TypeScript + Vite
+# Picthesia 🌐🎈
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Interactive Word Fusion Sandbox**  
 
-Currently, two official plugins are available:
+Picthesia turns words into bouncing balls. When two balls collide, they **fuse into a new concept** using AI (Gemini API), creating a dynamic, fun, and visual playground for word exploration!  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🎬 Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*Insert GIF or screenshot here showing balls bouncing and fusing*  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ⚡ Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Bouncing Words:** Words move dynamically like balls with random directions and velocities.  
+- **AI-Powered Fusion:** Colliding balls generate a new word or concept via Gemini API.  
+- **Text & Image Toggle:** Switch between text-only or picture+text view.  
+- **Grace Time:** Prevents instant collision chains for smoother interaction.  
+- **Smart State Handling:** Avoids duplicates, key errors, and animation glitches.  
+- **Rate Limit Resilient:** Handles Gemini API 500 errors gracefully.  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🏗️ Architecture
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **`ToggleableBouncingContainer`** – main wrapper, toggles ball display modes.  
+- **`Ball`** – single word/image ball with position, velocity, and unique ID.  
+- **`PicWordToggle`** – switches display modes.  
+- **Hooks:**  
+  - `useBalls` – initializes balls, sets random positions & speeds, handles wall bounces.  
+  - `useBallCollisions` – detects collisions, spawns fused balls, prevents duplicates.  
+  - `useFusionQueue` – queues AI fusion requests and updates balls with responses.  
+
+---
+
+## ✅ Challenges Solved
+
+- Prevented multiple spawns on one collision.  
+- Randomized movement for new balls immediately after spawn.  
+- Avoided duplicate API calls and UUID collisions.  
+- Dynamic image integration from parent balls or Wikimedia API.  
+- Smooth wall bounces and collision logic.  
+
+---
+
+## 💡 Future Enhancements
+
+- Retry/backoff logic for API rate limits.  
+- Visual feedback for balls awaiting fusion.  
+- Smoother animations using `requestAnimationFrame`.  
+- Fusion chain history visualization.  
+- Speed/size scaling based on word importance or length. 
+
+## 🛠️ Tech Stack
+Frontend: React + TypeScript
+Styling: CSS Modules
+State Management: Custom React hooks (useBalls, useBallCollisions, useFusionQueue)
+APIs: Gemini API for AI fusion, Wikimedia API for images
+
+---
+
+## 🤝 Contributing
+Contributions are welcome!
+Open issues for bugs or feature requests.
+Submit pull requests for new features or improvements.
+
+---
+
+## 📜 License
+MIT License © 2025
