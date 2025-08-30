@@ -67,7 +67,7 @@ Contributions are welcome!
 Open issues for bugs or feature requests.
 Submit pull requests for new features or improvements.
 
----
+
 
 ## 📜 License
 MIT License © 2025
