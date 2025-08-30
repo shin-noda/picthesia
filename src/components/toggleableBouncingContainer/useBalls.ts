@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 export const useBalls = (
   words: string[],
   images: Record<string, any>, // WikimediaImage[]
-  graceDuration: number = 1000
+  graceDuration: number = 50
 ) => {
   const [balls, setBalls] = useState<BallData[]>([]);
 
