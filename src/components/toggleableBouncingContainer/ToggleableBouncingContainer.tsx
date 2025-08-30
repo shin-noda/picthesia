@@ -1,149 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import PicWordToggle from "../picWordToggle/PicWordToggle";
 import Ball from "../ball/Ball";
+import { useFusionQueue } from "../../hooks/useFusionQueue";
+import { useBalls } from "./useBalls";
+import { useBallCollisions } from "./useBallCollisions";
+import type { ToggleableBouncingContainerProps } from "./types";
 import "./ToggleableBouncingContainer.css";
-import type { WikimediaImage } from "../../services/wikipediaService";
-
-interface ToggleableBouncingContainerProps {
-  words: string[];
-  images: Record<string, WikimediaImage[]>;
-}
-
-interface BallData {
-  word: string;
-  imgUrl?: string;
-  x: number;
-  y: number;
-  dx: number;
-  dy: number;
-  size: number;
-}
 
 const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({ words, images }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [balls, setBalls] = useState<BallData[]>([]);
-  const [visible, setVisible] = useState(true);
-  const [showPic, setShowPic] = useState(true);
   const animationFrameRef = useRef<number | null>(null);
 
-  const uniqueWords = Array.from(new Set(words.map(w => w.toLowerCase())));
+  const [visible, setVisible] = useState(true);
+  const [showPic, setShowPic] = useState(true);
 
-  // Initialize balls once
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const { clientWidth, clientHeight } = containerRef.current;
+  const { balls, setBalls, updateWallCollisions } = useBalls(words, images);
+  const { enqueueFusion } = useFusionQueue(balls, setBalls);
+  const { handleCollisions } = useBallCollisions(enqueueFusion);
 
-    const newBalls: BallData[] = uniqueWords.map(word => {
-      const imgKey = Object.keys(images).find(k => k.toLowerCase() === word);
-      const imgObj = imgKey ? images[imgKey]?.[0] : undefined;
-      const imgUrl = imgObj?.url;
-
-      const size = 50;
-      const x = Math.floor(Math.random() * (clientWidth - size));
-      const y = Math.floor(Math.random() * (clientHeight - size));
-
-      const angle = Math.random() * 2 * Math.PI;
-      const speed = 1;
-      const dx = Math.cos(angle) * speed;
-      const dy = Math.sin(angle) * speed;
-
-      return { word, imgUrl, x, y, dx, dy, size };
-    });
-
-    setBalls(newBalls);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images]);
-
-  // Collision detection
-  const collisionDetection = (ballArray: BallData[]): BallData[] => {
-    const updatedBalls = [...ballArray];
-
-    for (let i = 0; i < updatedBalls.length; i++) {
-      for (let j = i + 1; j < updatedBalls.length; j++) {
-        const b1 = updatedBalls[i];
-        const b2 = updatedBalls[j];
-
-        const dx = b2.x - b1.x;
-        const dy = b2.y - b1.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const minDist = b1.size;
-
-        if (distance < minDist && distance > 0) {
-          const angle = Math.atan2(dy, dx);
-          const speed1 = Math.sqrt(b1.dx * b1.dx + b1.dy * b1.dy);
-          const speed2 = Math.sqrt(b2.dx * b2.dx + b2.dy * b2.dy);
-          const dir1 = Math.atan2(b1.dy, b1.dx);
-          const dir2 = Math.atan2(b2.dy, b2.dx);
-
-          const vx1 = speed1 * Math.cos(dir1 - angle);
-          const vy1 = speed1 * Math.sin(dir1 - angle);
-          const vx2 = speed2 * Math.cos(dir2 - angle);
-          const vy2 = speed2 * Math.sin(dir2 - angle);
-
-          const final_vx1 = vx2;
-          const final_vx2 = vx1;
-
-          b1.dx = Math.cos(angle) * final_vx1 + Math.cos(angle + Math.PI/2) * vy1;
-          b1.dy = Math.sin(angle) * final_vx1 + Math.sin(angle + Math.PI/2) * vy1;
-          b2.dx = Math.cos(angle) * final_vx2 + Math.cos(angle + Math.PI/2) * vy2;
-          b2.dy = Math.sin(angle) * final_vx2 + Math.sin(angle + Math.PI/2) * vy2;
-
-          const overlap = (minDist - distance) / 2;
-          b1.x -= overlap * Math.cos(angle);
-          b1.y -= overlap * Math.sin(angle);
-          b2.x += overlap * Math.cos(angle);
-          b2.y += overlap * Math.sin(angle);
-        }
-      }
-    }
-
-    return updatedBalls;
-  };
-
-  // Animate balls
   useEffect(() => {
     if (!visible) return;
 
-    let lastMoveTime = Date.now();
-    const moveInterval = 1;
-
     const animate = () => {
-      const now = Date.now();
-      if (now - lastMoveTime >= moveInterval) {
-        lastMoveTime = now;
+      if (!containerRef.current) return;
+      const { clientWidth, clientHeight } = containerRef.current;
 
-        if (!containerRef.current) return;
-        const { clientWidth, clientHeight } = containerRef.current;
+      setBalls((prev) => handleCollisions(updateWallCollisions(prev, clientWidth, clientHeight)));
 
-        setBalls(prev =>
-          collisionDetection(
-            prev.map(ball => {
-              let newX = ball.x + ball.dx;
-              let newY = ball.y + ball.dy;
-              let newDx = ball.dx;
-              let newDy = ball.dy;
-
-              if (newX <= 0) {
-                newX = 0;
-                newDx = -newDx;
-              } else if (newX + ball.size >= clientWidth) {
-                newX = clientWidth - ball.size;
-                newDx = -newDx;
-              }
-
-              if (newY <= 0) {
-                newY = 0;
-                newDy = -newDy;
-              } else if (newY + ball.size >= clientHeight) {
-                newY = clientHeight - ball.size;
-                newDy = -newDy;
-              }
-
-              return { ...ball, x: newX, y: newY, dx: newDx, dy: newDy };
-            })
-          )
-        );
-      }
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
@@ -152,14 +35,11 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [visible]);
+  }, [visible, handleCollisions, updateWallCollisions, setBalls]);
 
   return (
     <div className="bouncing-container-wrapper">
-      <button
-        className="toggle-button"
-        onClick={() => setVisible(prev => !prev)}
-      >
+      <button className="toggle-button" onClick={() => setVisible((prev) => !prev)}>
         {visible ? "Hide Word Balls" : "Show Word Balls"}
       </button>
 
@@ -167,9 +47,9 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
         <>
           <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
           <div className="bouncing-container" ref={containerRef}>
-            {balls.map(ball => (
+            {balls.map((ball) => (
               <Ball
-                key={ball.word}
+                key={ball.id}
                 word={ball.word}
                 imgUrl={ball.imgUrl}
                 x={ball.x}
