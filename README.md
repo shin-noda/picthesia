@@ -4,13 +4,13 @@
 
 Picthesia turns words into bouncing balls. When two balls collide, they **fuse into a new concept** using AI (Gemini API), creating a dynamic, fun, and visual playground for word exploration!  
 
----
+
 
 ## 🎬 Demo
 
 *Insert GIF or screenshot here showing balls bouncing and fusing*  
 
----
+
 
 ## ⚡ Features
 
@@ -21,7 +21,7 @@ Picthesia turns words into bouncing balls. When two balls collide, they **fuse i
 - **Smart State Handling:** Avoids duplicates, key errors, and animation glitches.  
 - **Rate Limit Resilient:** Handles Gemini API 500 errors gracefully.  
 
----
+
 
 ## 🏗️ Architecture
 
@@ -33,7 +33,7 @@ Picthesia turns words into bouncing balls. When two balls collide, they **fuse i
   - `useBallCollisions` – detects collisions, spawns fused balls, prevents duplicates.  
   - `useFusionQueue` – queues AI fusion requests and updates balls with responses.  
 
----
+
 
 ## ✅ Challenges Solved
 
@@ -43,7 +43,7 @@ Picthesia turns words into bouncing balls. When two balls collide, they **fuse i
 - Dynamic image integration from parent balls or Wikimedia API.  
 - Smooth wall bounces and collision logic.  
 
----
+
 
 ## 💡 Future Enhancements
 
@@ -53,13 +53,14 @@ Picthesia turns words into bouncing balls. When two balls collide, they **fuse i
 - Fusion chain history visualization.  
 - Speed/size scaling based on word importance or length. 
 
+
 ## 🛠️ Tech Stack
 Frontend: React + TypeScript
 Styling: CSS Modules
 State Management: Custom React hooks (useBalls, useBallCollisions, useFusionQueue)
 APIs: Gemini API for AI fusion, Wikimedia API for images
 
----
+
 
 ## 🤝 Contributing
 Contributions are welcome!
