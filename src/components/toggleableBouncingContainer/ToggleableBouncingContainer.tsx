@@ -16,10 +16,6 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
   const [visible, setVisible] = useState(true);
   const [showPic, setShowPic] = useState(true);
-
-  // Fix for loadingWords: ignore unused first element
-  const [, setLoadingWords] = useState<Record<string, boolean>>({});
-
   const { balls, setBalls, updateWallCollisions } = useBalls(words, images);
   const { enqueueFusion } = useFusionQueue(setBalls);
 
