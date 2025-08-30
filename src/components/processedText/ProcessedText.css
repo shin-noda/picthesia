@@ -1,0 +1,60 @@
+/* ProcessedText.css */
+
+/* Container for processed text results */
+.processed-text {
+  background: white;
+  padding: clamp(20px, 5vw, 30px);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 100%;
+  text-align: center;
+}
+
+.processed-text h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
+}
+
+/* Container for the individual words */
+.text-output {
+  line-height: 2;
+  font-size: clamp(16px, 4vw, 18px);
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+/* Each word container */
+.word-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* Underlined word styling */
+.underlined-word {
+  text-decoration: underline;
+  text-decoration-color: #667eea;
+  text-decoration-thickness: 2px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.underlined-word:hover {
+  color: #667eea;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .processed-text { padding: 20px; margin-bottom: 20px; }
+  .word-container { margin-right: 6px; margin-bottom: 6px; }
+}
+
+@media (max-width: 480px) {
+  .processed-text { padding: 15px; margin-bottom: 15px; }
+  .word-container { margin-right: 4px; margin-bottom: 4px; }
+}

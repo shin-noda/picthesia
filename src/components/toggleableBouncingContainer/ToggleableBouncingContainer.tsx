@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PicWordToggle from "../picWordToggle/PicWordToggle";
+import Ball from "../ball/Ball";
 import "./ToggleableBouncingContainer.css";
 import type { WikimediaImage } from "../../services/wikipediaService";
 
@@ -8,7 +9,7 @@ interface ToggleableBouncingContainerProps {
   images: Record<string, WikimediaImage[]>;
 }
 
-interface Ball {
+interface BallData {
   word: string;
   imgUrl?: string;
   x: number;
@@ -20,7 +21,7 @@ interface Ball {
 
 const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({ words, images }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [balls, setBalls] = useState<Ball[]>([]);
+  const [balls, setBalls] = useState<BallData[]>([]);
   const [visible, setVisible] = useState(true);
   const [showPic, setShowPic] = useState(true);
   const animationFrameRef = useRef<number | null>(null);
@@ -32,7 +33,7 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
     if (!containerRef.current) return;
     const { clientWidth, clientHeight } = containerRef.current;
 
-    const newBalls: Ball[] = uniqueWords.map(word => {
+    const newBalls: BallData[] = uniqueWords.map(word => {
       const imgKey = Object.keys(images).find(k => k.toLowerCase() === word);
       const imgObj = imgKey ? images[imgKey]?.[0] : undefined;
       const imgUrl = imgObj?.url;
@@ -53,8 +54,8 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
-  // Collision detection between all balls
-  const collisionDetection = (ballArray: Ball[]): Ball[] => {
+  // Collision detection
+  const collisionDetection = (ballArray: BallData[]): BallData[] => {
     const updatedBalls = [...ballArray];
 
     for (let i = 0; i < updatedBalls.length; i++) {
@@ -68,14 +69,12 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
         const minDist = b1.size;
 
         if (distance < minDist && distance > 0) {
-          // Simple elastic collision for equal mass
           const angle = Math.atan2(dy, dx);
           const speed1 = Math.sqrt(b1.dx * b1.dx + b1.dy * b1.dy);
           const speed2 = Math.sqrt(b2.dx * b2.dx + b2.dy * b2.dy);
           const dir1 = Math.atan2(b1.dy, b1.dx);
           const dir2 = Math.atan2(b2.dy, b2.dx);
 
-          // Swap velocities along the collision vector
           const vx1 = speed1 * Math.cos(dir1 - angle);
           const vy1 = speed1 * Math.sin(dir1 - angle);
           const vx2 = speed2 * Math.cos(dir2 - angle);
@@ -84,13 +83,11 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
           const final_vx1 = vx2;
           const final_vx2 = vx1;
 
-          // Convert back to original coordinate system
           b1.dx = Math.cos(angle) * final_vx1 + Math.cos(angle + Math.PI/2) * vy1;
           b1.dy = Math.sin(angle) * final_vx1 + Math.sin(angle + Math.PI/2) * vy1;
           b2.dx = Math.cos(angle) * final_vx2 + Math.cos(angle + Math.PI/2) * vy2;
           b2.dy = Math.sin(angle) * final_vx2 + Math.sin(angle + Math.PI/2) * vy2;
 
-          // Push balls apart slightly to avoid sticking
           const overlap = (minDist - distance) / 2;
           b1.x -= overlap * Math.cos(angle);
           b1.y -= overlap * Math.sin(angle);
@@ -126,7 +123,6 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
               let newDx = ball.dx;
               let newDy = ball.dy;
 
-              // Bounce X
               if (newX <= 0) {
                 newX = 0;
                 newDx = -newDx;
@@ -135,7 +131,6 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
                 newDx = -newDx;
               }
 
-              // Bounce Y
               if (newY <= 0) {
                 newY = 0;
                 newDy = -newDy;
@@ -170,27 +165,22 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
       {visible && (
         <>
-            <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
-            <div className="bouncing-container" ref={containerRef}>
+          <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
+          <div className="bouncing-container" ref={containerRef}>
             {balls.map(ball => (
-                <div
+              <Ball
                 key={ball.word}
-                className="word-ball"
-                style={{
-                    width: ball.size,
-                    height: ball.size,
-                    left: ball.x,
-                    top: ball.y,
-                    backgroundImage: showPic && ball.imgUrl ? `url(${ball.imgUrl})` : undefined,
-                    backgroundColor: ball.imgUrl ? "#667eea" : "#ccc",
-                }}
-                >
-                {!showPic && <span>{ball.word}</span>}
-                </div>
+                word={ball.word}
+                imgUrl={ball.imgUrl}
+                x={ball.x}
+                y={ball.y}
+                size={ball.size}
+                showPic={showPic}
+              />
             ))}
-            </div>
+          </div>
         </>
-        )}
+      )}
     </div>
   );
 };

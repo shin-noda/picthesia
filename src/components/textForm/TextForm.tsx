@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './TextForm.css';
 
 interface TextFormProps {
   onSubmit: (text: string) => void;

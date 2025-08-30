@@ -1,0 +1,57 @@
+/* Container for images popup */
+.image-preview {
+  position: absolute;
+  bottom: 100%;          /* show above the word */
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  min-width: 200px;
+  max-width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+  margin-bottom: 5px; /* gap from word */
+}
+
+/* Show popup when parent is hovered (from WordContainer) */
+.word-container:hover .image-preview {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Image styling */
+.word-image {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.word-image:hover {
+  transform: scale(1.1);
+}
+
+/* Placeholder for loading or no images */
+.image-placeholder {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+
+/* WordDefinition wrapper inside popup */
+.definition-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #333;
+  text-align: left;
+}

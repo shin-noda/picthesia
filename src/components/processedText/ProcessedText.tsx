@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { WikipediaService, type WikimediaImage } from '../../services/wikipediaService';
 import PicsDefWindow from '../picsDefWindow/PicsDefWindow';
 import ToggleableBouncingContainer from '../toggleableBouncingContainer/ToggleableBouncingContainer';
+import './ProcessedText.css';
 
 interface ProcessedTextProps {
   text: string;

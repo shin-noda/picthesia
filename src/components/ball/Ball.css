@@ -1,0 +1,17 @@
+.word-ball {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 8px;
+  text-align: center;
+  overflow: hidden;
+  position: absolute;
+  background-color: #ccc; /* fallback color */
+}
+
+.word-ball.pic {
+  background-color: #667eea;
+  background-size: cover;
+  background-position: center;
+}

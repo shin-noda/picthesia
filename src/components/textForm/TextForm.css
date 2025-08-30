@@ -1,0 +1,103 @@
+/* TextForm.css */
+
+/* Form container */
+.text-form {
+  background: white;
+  padding: clamp(20px, 5vw, 30px);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+/* Input wrapper */
+.input-container {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Word counter */
+.word-counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.word-count {
+  color: #666;
+  font-weight: 500;
+}
+
+.word-limit-exceeded,
+.limit-warning {
+  color: #e74c3c;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Textarea */
+.text-input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Submit button */
+.submit-button {
+  display: block;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
+.submit-button:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.submit-button:active:not(.disabled) {
+  transform: translateY(0);
+}
+
+.submit-button.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .text-form { padding: 20px; margin-bottom: 20px; }
+  .submit-button { padding: 12px 20px; font-size: 14px; }
+  .text-input { padding: 12px; font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .text-form { padding: 15px; margin-bottom: 15px; }
+  .submit-button { padding: 10px 15px; font-size: 13px; }
+  .text-input { padding: 10px; font-size: 13px; }
+}
