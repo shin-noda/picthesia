@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { WikipediaService, type WikimediaImage } from '../../services/wikipediaService';
+import { WikipediaService, type WikimediaImage } from '../../services/WikipediaService';
 import PicsDefWindow from '../picsDefWindow/PicsDefWindow';
 import ToggleableBouncingContainer from '../toggleableBouncingContainer/ToggleableBouncingContainer';
 import './ProcessedText.css';
@@ -10,7 +10,7 @@ interface ProcessedTextProps {
 
 const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});
-  const [loadingWords, setLoadingWords] = useState<Record<string, boolean>>({});
+  const [, setLoadingWords] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!text) {
