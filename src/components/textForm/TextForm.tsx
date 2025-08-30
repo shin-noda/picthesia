@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TextForm.css';
 
 interface TextFormProps {
   onSubmit: (text: string) => void;
+  // prop to reset the form when it changes
+  resetKey?: number;
 }
 
 const MAX_WORDS = 250;
 
-const TextForm: React.FC<TextFormProps> = ({ onSubmit }) => {
+const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey }) => {
   const [text, setText] = useState('');
+
+  // whenever resetKey changes, clear the input
+  useEffect(() => {
+    setText('');
+  }, [resetKey]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputText = e.target.value;

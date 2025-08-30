@@ -1,0 +1,38 @@
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
+  width: 100%;
+  max-width: 800px;
+  padding: 40px 20px 0 20px;
+}
+
+.app-header h1 {
+  font-size: clamp(2rem, 8vw, 3rem);
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.app-header p {
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  margin: 0;
+  opacity: 0.9;
+  padding: 0 20px;
+}
+
+.header-link {
+  text-decoration: none;   /* removes underline */
+  color: inherit;          /* keeps the white text */
+  display: inline-block;   /* ensures click area matches text */
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header { margin-bottom: 30px; }
+}
+
+@media (max-width: 480px) {
+  .app-header { margin-bottom: 20px; }
+}
