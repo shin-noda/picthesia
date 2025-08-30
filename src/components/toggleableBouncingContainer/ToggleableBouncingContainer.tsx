@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import PicWordToggle from "../picWordToggle/PicWordToggle";
 import "./ToggleableBouncingContainer.css";
 import type { WikimediaImage } from "../../services/wikipediaService";
 
@@ -21,6 +22,7 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
   const containerRef = useRef<HTMLDivElement>(null);
   const [balls, setBalls] = useState<Ball[]>([]);
   const [visible, setVisible] = useState(true);
+  const [showPic, setShowPic] = useState(true);
   const animationFrameRef = useRef<number | null>(null);
 
   const uniqueWords = Array.from(new Set(words.map(w => w.toLowerCase())));
@@ -167,25 +169,28 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
       </button>
 
       {visible && (
-        <div className="bouncing-container" ref={containerRef}>
-          {balls.map(ball => (
-            <div
-              key={ball.word}
-              className="word-ball"
-              style={{
-                width: ball.size,
-                height: ball.size,
-                left: ball.x,
-                top: ball.y,
-                backgroundImage: ball.imgUrl ? `url(${ball.imgUrl})` : undefined,
-                backgroundColor: ball.imgUrl ? "#ccc" : "#667eea",
-              }}
-            >
-              {!ball.imgUrl && <span>{ball.word}</span>}
+        <>
+            <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
+            <div className="bouncing-container" ref={containerRef}>
+            {balls.map(ball => (
+                <div
+                key={ball.word}
+                className="word-ball"
+                style={{
+                    width: ball.size,
+                    height: ball.size,
+                    left: ball.x,
+                    top: ball.y,
+                    backgroundImage: showPic && ball.imgUrl ? `url(${ball.imgUrl})` : undefined,
+                    backgroundColor: ball.imgUrl ? "#667eea" : "#ccc",
+                }}
+                >
+                {!showPic && <span>{ball.word}</span>}
+                </div>
+            ))}
             </div>
-          ))}
-        </div>
-      )}
+        </>
+        )}
     </div>
   );
 };
