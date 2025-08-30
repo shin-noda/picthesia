@@ -1,7 +1,7 @@
 import type { WikimediaImage } from "../../services/wikipediaService";
 
 export interface BallData {
-  id: string;       // unique ID for React keys
+  id: string;
   word: string;
   imgUrl?: string;
   x: number;
@@ -9,6 +9,9 @@ export interface BallData {
   dx: number;
   dy: number;
   size: number;
+  isOutOfGraceTime: boolean;
+  hasBumped: boolean;
+  isProcessing?: boolean;
 }
 
 export interface ToggleableBouncingContainerProps {

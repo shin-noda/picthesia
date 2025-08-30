@@ -1,54 +1,77 @@
 import type { BallData } from "./types";
+import { v4 as uuidv4 } from "uuid";
+import { useGraceTime } from "./useGraceTime";
 
-export const useBallCollisions = (enqueueFusion: (w1: string, w2: string) => void) => {
+export const useBallCollisions = (
+  enqueueFusion: (w1: string, w2: string, id: string) => void
+) => {
+  const isOutOfGraceTime = useGraceTime(1000);
+
   const handleCollisions = (balls: BallData[]): BallData[] => {
     const updated = [...balls];
+    let collisionHandled = false;
 
-    for (let i = 0; i < updated.length; i++) {
-      for (let j = i + 1; j < updated.length; j++) {
+    // IDs of balls to remove and new ball to add
+    const removeIds: string[] = [];
+    let newBall: BallData | null = null;
+    let fusionWords: [string, string] = ["", ""];
+
+    for (let i = 0; i < updated.length && !collisionHandled; i++) {
+      for (let j = i + 1; j < updated.length && !collisionHandled; j++) {
         const b1 = updated[i];
         const b2 = updated[j];
+
+        if (
+          !isOutOfGraceTime ||
+          b1.hasBumped ||
+          b2.hasBumped ||
+          b1.isProcessing ||
+          b2.isProcessing
+        ) continue;
 
         const dx = b2.x - b1.x;
         const dy = b2.y - b1.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         const minDist = b1.size;
 
-        if (distance < minDist && distance > 0) {
-          // Trigger fusion
-          enqueueFusion(b1.word, b2.word);
+        if (distance > 0 && distance < minDist) {
+          collisionHandled = true;
 
-          const angle = Math.atan2(dy, dx);
-          const [vx1, vy1] = [b1.dx, b1.dy];
-          const [vx2, vy2] = [b2.dx, b2.dy];
+          removeIds.push(b1.id, b2.id);
+          fusionWords = [b1.word, b2.word];
 
-          // Rotate velocities
-          const rotated_vx1 = vx1 * Math.cos(angle) + vy1 * Math.sin(angle);
-          const rotated_vy1 = vy1 * Math.cos(angle) - vx1 * Math.sin(angle);
-          const rotated_vx2 = vx2 * Math.cos(angle) + vy2 * Math.sin(angle);
-          const rotated_vy2 = vy2 * Math.cos(angle) - vx2 * Math.sin(angle);
+          const speedMagnitude = Math.sqrt(
+            ((b1.dx ** 2 + b1.dy ** 2) + (b2.dx ** 2 + b2.dy ** 2)) / 2
+          );
+          const angle = Math.random() * 2 * Math.PI;
 
-          // 1D elastic collision
-          const final_vx1 = rotated_vx2;
-          const final_vx2 = rotated_vx1;
+          newBall = {
+            id: uuidv4(),
+            word: "...",
+            imgUrl: b1.imgUrl || b2.imgUrl,
+            x: (b1.x + b2.x) / 2,
+            y: (b1.y + b2.y) / 2,
+            dx: Math.cos(angle) * speedMagnitude,
+            dy: Math.sin(angle) * speedMagnitude,
+            size: Math.max(b1.size, b2.size),
+            isOutOfGraceTime: true,
+            hasBumped: true,
+            isProcessing: true,
+          };
 
-          // Rotate back
-          b1.dx = final_vx1 * Math.cos(angle) - rotated_vy1 * Math.sin(angle);
-          b1.dy = rotated_vy1 * Math.cos(angle) + final_vx1 * Math.sin(angle);
-          b2.dx = final_vx2 * Math.cos(angle) - rotated_vy2 * Math.sin(angle);
-          b2.dy = rotated_vy2 * Math.cos(angle) + final_vx2 * Math.sin(angle);
-
-          // Prevent sticking
-          const overlap = (minDist - distance) / 2;
-          b1.x -= overlap * Math.cos(angle);
-          b1.y -= overlap * Math.sin(angle);
-          b2.x += overlap * Math.cos(angle);
-          b2.y += overlap * Math.sin(angle);
+          break;
         }
       }
     }
 
-    return updated;
+    // Return new balls array (remove collided, add new one)
+    let filtered = updated.filter((b) => !removeIds.includes(b.id));
+    if (newBall) filtered.push(newBall);
+
+    // Trigger fusion outside of loop
+    if (newBall) enqueueFusion(fusionWords[0], fusionWords[1], newBall.id);
+
+    return filtered;
   };
 
   return { handleCollisions };

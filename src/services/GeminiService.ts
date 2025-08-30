@@ -2,7 +2,14 @@
 export class GeminiService {
   static async getFusionWord(word1: string, word2: string): Promise<string | undefined> {
     try {
-      const prompt = `${word1} + ${word2} = ?`;
+      const prompt = `
+Please answer the following question in a single line. 
+Do NOT provide explanations — only a direct answer.
+If the question involves politics, race, religion, or other sensitive topics, do not answer.
+
+Question: ${word1} + ${word2} = ?
+      `.trim();
+
       const res = await fetch("https://picthesia-backend.vercel.app/api", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
