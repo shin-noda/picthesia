@@ -20,5 +20,5 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'), // optional: handy alias for imports
     },
   },
-  base: './dist', // ensures relative paths for Appwrite Sites
+  base: '/', // ensures relative paths for Appwrite Sites
 });
