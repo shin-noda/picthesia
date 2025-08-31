@@ -17,3 +17,11 @@ export interface ToggleableBouncingContainerProps {
   words: string[];
   images: Record<string, WikimediaImage[]>;
 }
+
+export interface FusionItem {
+  word1: string;
+  word2: string;
+  id: string; // placeholder ball id
+  resultWord?: string;
+  resultImg?: string;
+}

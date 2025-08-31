@@ -1,0 +1,45 @@
+/* /components/fusionListBoard/FusionListBoard.css */
+.fusion-list-board {
+  position: relative;
+  margin-top:30px;
+  width: 100%;
+  border: 1px #ccc solid;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #f9f9f9; /* subtle background */
+}
+
+.fusion-list-title {
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 7px;
+}
+
+.fusion-item {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fusion-img {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.fusion-list-board h4 {
+  margin: 8px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.fusion-list-board ul {
+  list-style: none;
+  padding: 8px 12px;
+  margin: 0;
+  max-height: 200px; /* optional scroll if many fusions */
+  overflow-y: auto;
+}

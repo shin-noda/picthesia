@@ -22,7 +22,9 @@ Question: ${word1} + ${word2} = ?
       }
 
       const data = await res.json();
-      console.log(`GeminiService: answer received for "${word1} + ${word2}":`, data.answer);
+
+      // Debugging
+      // console.log(`GeminiService: answer received for "${word1} + ${word2}":`, data.answer);
       return data.answer;
     } catch (err) {
       console.error("GeminiService error:", err);

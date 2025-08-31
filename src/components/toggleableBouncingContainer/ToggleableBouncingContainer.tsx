@@ -1,11 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
+
+// Components
+import Ball from "../ball/Ball";
 import PicWordToggle from "../picWordToggle/PicWordToggle";
 import BallsFuseToggle from "../ballsFuseToggle/BallsFuseToggle";
-import Ball from "../ball/Ball";
-import { useFusionQueue } from "../../hooks/useFusionQueue";
+import FusionListBoard from "../fusionListBoard/FusionListBoard";
+
+// Custom Hooks
 import { useBalls } from "./useBalls";
+import { useFusionQueue } from "../../hooks/useFusionQueue";
 import { useBallCollisions } from "./useBallCollisions";
-import type { ToggleableBouncingContainerProps, BallData } from "./types";
+
+// Types and Styles
+import type { ToggleableBouncingContainerProps, BallData, FusionItem } from "./types";
 import "./ToggleableBouncingContainer.css";
 
 const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({
@@ -15,15 +22,44 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
   const containerRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | null>(null);
 
+  // State
   const [visible, setVisible] = useState(true);
   const [showPic, setShowPic] = useState(true);
   const [fusionEnabled, setFusionEnabled] = useState(false);
+  const [fusionList, setFusionList] = useState<FusionItem[]>([]);
 
+  // Set to track unique fusion entries (prevents duplicates)
+  const fusionSetRef = useRef<Set<string>>(new Set());
+
+  // Custom Hooks
   const { balls, setBalls, updateWallCollisions } = useBalls(words, images);
-  const { enqueueFusion } = useFusionQueue(setBalls);
 
-  // Pass fusionEnabled into the collision hook
-  const { handleCollisions } = useBallCollisions(enqueueFusion, fusionEnabled);
+  // Use fusion queue directly with setBalls and setFusionList
+  const { enqueueFusion } = useFusionQueue(setBalls, setFusionList);
+
+  // Handle fusion with duplicate prevention and debug Set
+  const handleEnqueueFusion = (word1: string, word2: string, id: string) => {
+    const key = `${word1}+${word2}`;
+
+    // Existing placeholder logic
+    if (!fusionSetRef.current.has(key)) {
+      fusionSetRef.current.add(key);
+
+      setFusionList((prev: FusionItem[]) => [
+        ...prev,
+        { word1, word2, id }, // placeholder
+      ]);
+    }
+
+    // Enqueue fusion to queue (async)
+    enqueueFusion(word1, word2, id);
+
+    // 🔹 DEBUG: Create a Set of all current Fusion List keys
+    const fusionKeysSet = new Set(fusionList.map(f => `${f.word1}+${f.word2}`));
+    console.log("Current Fusion Set:", Array.from(fusionKeysSet));
+  };
+
+  const { handleCollisions } = useBallCollisions(handleEnqueueFusion, fusionEnabled);
 
   useEffect(() => {
     if (!visible) return;
@@ -31,12 +67,12 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
     const animate = () => {
       if (!containerRef.current) return;
 
-      const width = containerRef.current.clientWidth;
-      const height = containerRef.current.clientHeight;
+      const { clientWidth: width, clientHeight: height } = containerRef.current;
 
-      setBalls((prev) =>
-        handleCollisions(updateWallCollisions(prev, width, height))
-      );
+      setBalls((prevBalls) => {
+        const ballsAfterWallCollision = updateWallCollisions(prevBalls, width, height);
+        return handleCollisions(ballsAfterWallCollision);
+      });
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -50,10 +86,7 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
   return (
     <div className="bouncing-container-wrapper">
-      <button
-        className="toggle-button"
-        onClick={() => setVisible((prev) => !prev)}
-      >
+      <button className="toggle-button" onClick={() => setVisible((prev) => !prev)}>
         {visible ? "Hide Word Balls" : "Show Word Balls"}
       </button>
 
@@ -61,10 +94,7 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
         <>
           <div className="toggles-row">
             <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
-            <BallsFuseToggle
-              fusionEnabled={fusionEnabled}
-              setFusionEnabled={setFusionEnabled}
-            />
+            <BallsFuseToggle fusionEnabled={fusionEnabled} setFusionEnabled={setFusionEnabled} />
           </div>
 
           <div className="bouncing-container" ref={containerRef}>
@@ -80,6 +110,13 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
               />
             ))}
           </div>
+
+          <FusionListBoard
+            fusionList={fusionList.map((f) => ({
+              ...f,
+              resultWord: f.resultWord ?? "…",
+            }))}
+          />
         </>
       )}
     </div>
