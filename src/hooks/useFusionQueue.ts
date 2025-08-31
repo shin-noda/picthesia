@@ -66,7 +66,7 @@ export const useFusionQueue = (
             );
           }
 
-          // 🔹 Add to completed fusions Set and log it
+          // Add to completed fusions Set and log it
           const key = `${item.word1}+${item.word2}`;
           completedFusionSetRef.add(key);
           

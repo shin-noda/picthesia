@@ -53,10 +53,6 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
     // Enqueue fusion to queue (async)
     enqueueFusion(word1, word2, id);
-
-    // 🔹 DEBUG: Create a Set of all current Fusion List keys
-    const fusionKeysSet = new Set(fusionList.map(f => `${f.word1}+${f.word2}`));
-    console.log("Current Fusion Set:", Array.from(fusionKeysSet));
   };
 
   const { handleCollisions } = useBallCollisions(handleEnqueueFusion, fusionEnabled);
