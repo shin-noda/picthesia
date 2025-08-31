@@ -1,28 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import type { BallData } from "../../types/types";
 import "./Ball.css";
 
 export interface BallProps {
-  word: string;
-  imgUrl?: string;
-  x: number;
-  y: number;
-  size: number;
+  ball: BallData;
   showPic: boolean;
 }
 
-const Ball: React.FC<BallProps> = ({ word, imgUrl, x, y, size, showPic }) => {
+const Ball: React.FC<BallProps> = ({ ball, showPic }) => {
+  const [animate, setAnimate] = useState(false);
+
+  // Trigger pop animation on mount
+  useEffect(() => {
+    setAnimate(true);
+    const timeout = setTimeout(() => setAnimate(false), 500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // Show simmer effect if ball is waiting for an image
+  const isSimmering = showPic && !ball.imgUrl;
+
   return (
     <div
-      className={`word-ball ${showPic && imgUrl ? "pic" : ""}`}
+      className={`word-ball ${showPic && ball.imgUrl ? "pic" : ""} ${animate ? "pop" : ""} ${
+        isSimmering ? "simmer" : ""
+      }`}
       style={{
-        width: size,
-        height: size,
-        left: x,
-        top: y,
-        backgroundImage: showPic && imgUrl ? `url(${imgUrl})` : undefined,
+        width: ball.size,
+        height: ball.size,
+        left: ball.x,
+        top: ball.y,
+        backgroundImage: showPic && ball.imgUrl ? `url(${ball.imgUrl})` : undefined,
       }}
     >
-      {!showPic && <span>{word}</span>}
+      {!showPic && <span>{ball.word}</span>}
     </div>
   );
 };

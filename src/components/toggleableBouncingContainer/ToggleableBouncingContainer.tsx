@@ -97,15 +97,12 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
             {balls.map((ball: BallData) => (
               <Ball
                 key={ball.id}
-                word={ball.word}
-                imgUrl={ball.imgUrl}
-                x={ball.x}
-                y={ball.y}
-                size={ball.size}
+                ball={ball}
                 showPic={showPic}
               />
             ))}
           </div>
+
 
           <FusionListBoard
             fusionList={fusionList.map((f) => ({
