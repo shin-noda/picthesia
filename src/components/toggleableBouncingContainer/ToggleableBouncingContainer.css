@@ -6,6 +6,7 @@
 .toggle-button {
   display: block;
   margin: 0 auto 10px;
+  margin-bottom: 20px;
   padding: 5px 10px;
   background: #667eea;
   color: white;
@@ -13,6 +14,14 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+}
+
+.toggles-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .bouncing-container {

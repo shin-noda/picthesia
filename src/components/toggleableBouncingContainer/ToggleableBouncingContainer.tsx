@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PicWordToggle from "../picWordToggle/PicWordToggle";
+import BallsFuseToggle from "../ballsFuseToggle/BallsFuseToggle";
 import Ball from "../ball/Ball";
 import { useFusionQueue } from "../../hooks/useFusionQueue";
 import { useBalls } from "./useBalls";
@@ -16,16 +17,13 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
   const [visible, setVisible] = useState(true);
   const [showPic, setShowPic] = useState(true);
+  const [fusionEnabled, setFusionEnabled] = useState(false);
+
   const { balls, setBalls, updateWallCollisions } = useBalls(words, images);
   const { enqueueFusion } = useFusionQueue(setBalls);
 
-  // Fix for useBallCollisions argument mismatch
-  const { handleCollisions } = useBallCollisions((w1, w2, id) => {
-    // Call original enqueueFusion
-    enqueueFusion(w1, w2, id);
-    // Trigger re-render (optional, keeps state in sync)
-    setBalls((prev) => [...prev]);
-  });
+  // Pass fusionEnabled into the collision hook
+  const { handleCollisions } = useBallCollisions(enqueueFusion, fusionEnabled);
 
   useEffect(() => {
     if (!visible) return;
@@ -36,7 +34,9 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
       const width = containerRef.current.clientWidth;
       const height = containerRef.current.clientHeight;
 
-      setBalls((prev) => handleCollisions(updateWallCollisions(prev, width, height)));
+      setBalls((prev) =>
+        handleCollisions(updateWallCollisions(prev, width, height))
+      );
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -59,7 +59,14 @@ const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = 
 
       {visible && (
         <>
-          <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
+          <div className="toggles-row">
+            <PicWordToggle showPic={showPic} setShowPic={setShowPic} />
+            <BallsFuseToggle
+              fusionEnabled={fusionEnabled}
+              setFusionEnabled={setFusionEnabled}
+            />
+          </div>
+
           <div className="bouncing-container" ref={containerRef}>
             {balls.map((ball: BallData) => (
               <Ball
