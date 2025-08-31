@@ -8,6 +8,7 @@
   background-position: center;
   transition: transform 0.2s ease, opacity 0.2s ease;
   opacity: 1;
+  background-color: #ccc; /* fallback color */
 }
 
 .word-ball.pop {
@@ -31,7 +32,6 @@
 
 /* --- Simmer effect for new balls waiting for image --- */
 .word-ball.simmer {
-  background-color: #EEE; /* darker base so shimmer stands out */
   position: relative;
   overflow: hidden;
   animation: simmerGlow 1.2s infinite ease-in-out alternate;
@@ -40,14 +40,11 @@
 @keyframes simmerGlow {
   0% {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    transform: scale(1);
   }
   50% {
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
-    transform: scale(1.08);
   }
   100% {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    transform: scale(1);
   }
 }
