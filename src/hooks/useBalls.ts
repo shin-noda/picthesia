@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { BallData } from "./types";
+import type { BallData } from "../types/types";
 import { v4 as uuidv4 } from "uuid";
 
 export const useBalls = (

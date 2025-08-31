@@ -1,4 +1,4 @@
-import { type WikimediaImage } from "../../services/WikiService";
+import { type WikimediaImage } from "../services/WikiService";
 
 export interface BallData {
   id: string;

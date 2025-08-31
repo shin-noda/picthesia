@@ -1,7 +1,7 @@
 // /components/fusionListBoard/FusionListBoard.tsx
 import React from "react";
 import "./FusionListBoard.css";
-import type { FusionItem } from "../toggleableBouncingContainer/types";
+import type { FusionItem } from "../../types/types";
 
 interface FusionListBoardProps {
   fusionList: FusionItem[];

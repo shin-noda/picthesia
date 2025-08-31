@@ -7,12 +7,12 @@ import BallsFuseToggle from "../ballsFuseToggle/BallsFuseToggle";
 import FusionListBoard from "../fusionListBoard/FusionListBoard";
 
 // Custom Hooks
-import { useBalls } from "./useBalls";
+import { useBalls } from "../../hooks/useBalls";
 import { useFusionQueue } from "../../hooks/useFusionQueue";
-import { useBallCollisions } from "./useBallCollisions";
+import { useBallCollisions } from "../../hooks/useBallCollisions";
 
 // Types and Styles
-import type { ToggleableBouncingContainerProps, BallData, FusionItem } from "./types";
+import type { ToggleableBouncingContainerProps, BallData, FusionItem } from "../../types/types";
 import "./ToggleableBouncingContainer.css";
 
 const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({

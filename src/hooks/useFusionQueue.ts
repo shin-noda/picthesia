@@ -1,7 +1,7 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { GeminiService } from "../services/GeminiService";
 import { WikipediaService } from "../services/WikiService";
-import type { BallData, FusionItem } from "../components/toggleableBouncingContainer/types";
+import type { BallData, FusionItem } from "../types/types";
 
 export const useFusionQueue = (
   setBalls: Dispatch<SetStateAction<BallData[]>>,

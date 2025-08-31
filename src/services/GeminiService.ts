@@ -3,7 +3,7 @@ export class GeminiService {
   static async getFusionWord(word1: string, word2: string): Promise<string | undefined> {
     try {
       const prompt = `
-Please only provide a single word or phrase as the answer to the ? part.
+Please only provide a single word as the answer to the ? part.
 Do NOT provide explanations or additional text.
 If the question is truly inappropriate or unsafe, respond with N/A.
 

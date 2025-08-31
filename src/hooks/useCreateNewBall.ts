@@ -1,7 +1,7 @@
 // /hooks/useCreateNewBall.ts
 import { v4 as uuidv4 } from "uuid";
-import type { BallData } from "./types";
-import { WikipediaService, type WikimediaImage } from "../../services/WikiService";
+import type { BallData } from "../types/types";
+import { WikipediaService, type WikimediaImage } from "../services/WikiService";
 
 interface UseCreateNewBallReturn {
   createNewBall: (
