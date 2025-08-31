@@ -1,4 +1,4 @@
-# Picthesia 🌐🎈
+# Picthesia
 
 **Interactive Word Fusion Sandbox**  
 
