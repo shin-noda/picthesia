@@ -31,7 +31,7 @@ export const useBalls = (
         dy: Math.sin(angle) * speed,
         size,
         isOutOfGraceTime: false,
-        hasBumped: false,
+        hasFused: false,
       };
     });
 
