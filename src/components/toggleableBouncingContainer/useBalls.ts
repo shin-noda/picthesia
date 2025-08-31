@@ -4,8 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const useBalls = (
   words: string[],
-  images: Record<string, any>, // WikimediaImage[]
-  graceDuration: number = 50
+  images: Record<string, any>
 ) => {
   const [balls, setBalls] = useState<BallData[]>([]);
 
@@ -19,7 +18,7 @@ export const useBalls = (
       const x = Math.random() * 400; // default container size fallback
       const y = Math.random() * 400;
       const angle = Math.random() * 2 * Math.PI;
-      const speed = 1;
+      const speed = 2;
 
       return {
         id: uuidv4(),
@@ -35,7 +34,7 @@ export const useBalls = (
     });
 
     setBalls(newBalls);
-  }, [words, images, graceDuration]);
+  }, [words, images]);
 
   const updateWallCollisions = (balls: BallData[], width: number, height: number) => {
     return balls.map((ball) => {
