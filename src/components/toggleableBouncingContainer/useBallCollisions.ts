@@ -39,7 +39,6 @@ export const useBallCollisions = (
               dx: Math.cos(angle) * speedMagnitude,
               dy: Math.sin(angle) * speedMagnitude,
               size: Math.max(b1.size, b2.size),
-              isOutOfGraceTime: true,
               hasFused: true,      // mark as fused
               isProcessing: true,
             };

@@ -9,7 +9,6 @@ export interface BallData {
   dx: number;
   dy: number;
   size: number;
-  isOutOfGraceTime: boolean;
   hasFused: boolean;
   isProcessing?: boolean;
 }

@@ -38,8 +38,7 @@ export const useCreateNewBall = (): UseCreateNewBallReturn => {
           dx: (b1.dx + b2.dx) / 2,
           dy: (b1.dy + b2.dy) / 2,
           size: Math.max(b1.size, b2.size),
-          isOutOfGraceTime: false,
-          hasBumped: true,
+          hasFused: true,
         };
 
         return [...filteredBalls, newBall];

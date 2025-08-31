@@ -30,42 +30,24 @@ export const useBalls = (
         dx: Math.cos(angle) * speed,
         dy: Math.sin(angle) * speed,
         size,
-        isOutOfGraceTime: false,
-        hasBumped: false,
+        hasFused: false,
       };
     });
 
     setBalls(newBalls);
-
-    // Start grace timer for each ball
-    const timers = newBalls.map((ball) =>
-      setTimeout(() => {
-        setBalls((prev) => {
-          const updated = [...prev];
-          const idx = updated.findIndex((b) => b.id === ball.id);
-          if (idx !== -1) updated[idx].isOutOfGraceTime = true;
-          return updated;
-        });
-      }, graceDuration)
-    );
-
-    return () => timers.forEach((t) => clearTimeout(t));
   }, [words, images, graceDuration]);
 
   const updateWallCollisions = (balls: BallData[], width: number, height: number) => {
     return balls.map((ball) => {
-      let { x, y, dx, dy, size, isOutOfGraceTime } = ball;
+      let { x, y, dx, dy, size } = ball;
 
-      // Only move if out of grace time
-      if (isOutOfGraceTime) {
-        if (x + dx < 0) { dx = Math.abs(dx); x = 0; }
-        if (x + dx + size > width) { dx = -Math.abs(dx); x = width - size; }
-        if (y + dy < 0) { dy = Math.abs(dy); y = 0; }
-        if (y + dy + size > height) { dy = -Math.abs(dy); y = height - size; }
+      if (x + dx < 0) { dx = Math.abs(dx); x = 0; }
+      if (x + dx + size > width) { dx = -Math.abs(dx); x = width - size; }
+      if (y + dy < 0) { dy = Math.abs(dy); y = 0; }
+      if (y + dy + size > height) { dy = -Math.abs(dy); y = height - size; }
 
-        x += dx;
-        y += dy;
-      }
+      x += dx;
+      y += dy;
 
       return { ...ball, x, y, dx, dy };
     });
