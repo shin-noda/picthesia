@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { WikipediaService, type WikimediaImage } from '../../services/WikipediaService';
+import { WikipediaService, type WikimediaImage } from '../../services/WikiService';
 import PicsDefWindow from '../picsDefWindow/PicsDefWindow';
 import ToggleableBouncingContainer from '../toggleableBouncingContainer/ToggleableBouncingContainer';
 import './ProcessedText.css';

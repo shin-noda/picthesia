@@ -1,6 +1,6 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { GeminiService } from "../services/GeminiService";
-import { WikipediaService } from "../services/WikipediaService";
+import { WikipediaService } from "../services/WikiService";
 import type { BallData } from "../components/toggleableBouncingContainer/types";
 
 interface FusionItem {

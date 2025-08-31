@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { type WikimediaImage } from '../../services/WikipediaService';
+import { type WikimediaImage } from '../../services/WikiService';
 import WordDefinition from '../wordDefinition/WordDefinition';
 import './PicsDefWindow.css';
 
