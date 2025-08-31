@@ -19,9 +19,6 @@ const Footer: React.FC = () => {
       <div className="footer-bottom">
         <div className="footer-bottom-content">
           <p>&copy; {currentYear} Picthesia. All rights reserved.</p>
-          <div className="footer-bottom-links">
-            <span>Powered by Wikipedia & AI</span>
-          </div>
         </div>
       </div>
     </footer>

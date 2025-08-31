@@ -1,33 +1,21 @@
 import type { BallData } from "./types";
 import { v4 as uuidv4 } from "uuid";
-import { useGraceTime } from "./useGraceTime";
 
 export const useBallCollisions = (
-  enqueueFusion: (w1: string, w2: string, id: string) => void
+  enqueueFusion: (w1: string, w2: string, id: string) => void,
+  fusionEnabled: boolean
 ) => {
-  const isOutOfGraceTime = useGraceTime(1000);
-
   const handleCollisions = (balls: BallData[]): BallData[] => {
     const updated = [...balls];
-    let collisionHandled = false;
 
-    // IDs of balls to remove and new ball to add
-    const removeIds: string[] = [];
-    let newBall: BallData | null = null;
-    let fusionWords: [string, string] = ["", ""];
-
-    for (let i = 0; i < updated.length && !collisionHandled; i++) {
-      for (let j = i + 1; j < updated.length && !collisionHandled; j++) {
+    for (let i = 0; i < updated.length; i++) {
+      for (let j = i + 1; j < updated.length; j++) {
         const b1 = updated[i];
         const b2 = updated[j];
 
-        if (
-          !isOutOfGraceTime ||
-          b1.hasBumped ||
-          b2.hasBumped ||
-          b1.isProcessing ||
-          b2.isProcessing
-        ) continue;
+        // Skip if either ball is processing or already fused
+        if (b1.isProcessing || b2.isProcessing || b1.hasFused || b2.hasFused)
+          continue;
 
         const dx = b2.x - b1.x;
         const dy = b2.y - b1.y;
@@ -35,43 +23,65 @@ export const useBallCollisions = (
         const minDist = b1.size;
 
         if (distance > 0 && distance < minDist) {
-          collisionHandled = true;
+          if (fusionEnabled) {
+            // --- Fusion behavior ---
+            const speedMagnitude = Math.sqrt(
+              ((b1.dx ** 2 + b1.dy ** 2) + (b2.dx ** 2 + b2.dy ** 2)) / 2
+            );
+            const angle = Math.random() * 2 * Math.PI;
 
-          removeIds.push(b1.id, b2.id);
-          fusionWords = [b1.word, b2.word];
+            const newBall: BallData = {
+              id: uuidv4(),
+              word: "...",
+              imgUrl: b1.imgUrl || b2.imgUrl,
+              x: (b1.x + b2.x) / 2,
+              y: (b1.y + b2.y) / 2,
+              dx: Math.cos(angle) * speedMagnitude,
+              dy: Math.sin(angle) * speedMagnitude,
+              size: Math.max(b1.size, b2.size),
+              isOutOfGraceTime: true,
+              hasFused: true,      // mark as fused
+              isProcessing: true,
+            };
 
-          const speedMagnitude = Math.sqrt(
-            ((b1.dx ** 2 + b1.dy ** 2) + (b2.dx ** 2 + b2.dy ** 2)) / 2
-          );
-          const angle = Math.random() * 2 * Math.PI;
+            // Mark old balls as fused so they won’t fuse again
+            b1.hasFused = true;
+            b2.hasFused = true;
 
-          newBall = {
-            id: uuidv4(),
-            word: "...",
-            imgUrl: b1.imgUrl || b2.imgUrl,
-            x: (b1.x + b2.x) / 2,
-            y: (b1.y + b2.y) / 2,
-            dx: Math.cos(angle) * speedMagnitude,
-            dy: Math.sin(angle) * speedMagnitude,
-            size: Math.max(b1.size, b2.size),
-            isOutOfGraceTime: true,
-            hasBumped: true,
-            isProcessing: true,
-          };
+            // Remove the old balls and add the new fused one
+            updated.splice(j, 1);
+            updated.splice(i, 1);
+            updated.push(newBall);
 
-          break;
+            enqueueFusion(b1.word, b2.word, newBall.id);
+
+            return updated; // handle only one fusion per frame
+          } else {
+            // --- Bounce off behavior ---
+            const tempDx = b1.dx;
+            const tempDy = b1.dy;
+
+            b1.dx = b2.dx;
+            b1.dy = b2.dy;
+
+            b2.dx = tempDx;
+            b2.dy = tempDy;
+
+            // Move balls slightly apart to avoid sticking
+            const overlap = minDist - distance;
+            const shiftX = (dx / distance) * (overlap / 2);
+            const shiftY = (dy / distance) * (overlap / 2);
+
+            b1.x -= shiftX;
+            b1.y -= shiftY;
+            b2.x += shiftX;
+            b2.y += shiftY;
+          }
         }
       }
     }
 
-    // Return new balls array (remove collided, add new one)
-    let filtered = updated.filter((b) => !removeIds.includes(b.id));
-    if (newBall) filtered.push(newBall);
-
-    // Trigger fusion outside of loop
-    if (newBall) enqueueFusion(fusionWords[0], fusionWords[1], newBall.id);
-
-    return filtered;
+    return updated;
   };
 
   return { handleCollisions };

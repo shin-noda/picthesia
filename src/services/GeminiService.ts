@@ -3,12 +3,12 @@ export class GeminiService {
   static async getFusionWord(word1: string, word2: string): Promise<string | undefined> {
     try {
       const prompt = `
-Please simply answer the ? part. 
-Do NOT provide explanations — only a direct answer.
-If the question involves politics, race, religion, or other sensitive topics, do not answer.
+Please only provide a single word or phrase as the answer to the ? part.
+Do NOT provide explanations or additional text.
+If the question is truly inappropriate or unsafe, respond with N/A.
 
 Question: ${word1} + ${word2} = ?
-      `.trim();
+`.trim();
 
       const res = await fetch("https://picthesia-backend.vercel.app/api", {
         method: "POST",
