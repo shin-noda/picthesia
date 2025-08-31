@@ -11,6 +11,7 @@ export interface BallData {
   size: number;
   hasFused: boolean;
   isProcessing?: boolean;
+  isSimmering?:boolean;
 }
 
 export interface ToggleableBouncingContainerProps {
