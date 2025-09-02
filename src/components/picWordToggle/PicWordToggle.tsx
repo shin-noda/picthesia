@@ -1,4 +1,3 @@
-import React from "react";
 import "./PicWordToggle.css";
 
 interface PicWordToggleProps {
@@ -6,7 +5,7 @@ interface PicWordToggleProps {
   setShowPic: (value: boolean) => void;
 }
 
-const PicWordToggle: React.FC<PicWordToggleProps> = ({ showPic, setShowPic }) => {
+const PicWordToggle = ({ showPic, setShowPic }: PicWordToggleProps) => {
   return (
     <div className="picword-toggle">
       <span className="picword-toggle-text">Show Images</span>

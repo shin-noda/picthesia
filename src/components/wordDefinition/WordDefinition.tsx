@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Add cache and setCache to props
 interface WordDefinitionProps {
@@ -7,7 +7,7 @@ interface WordDefinitionProps {
   setCache: (word: string, def: string) => void;
 }
 
-const WordDefinition: React.FC<WordDefinitionProps> = ({ word, cache, setCache }) => {
+const WordDefinition = ({ word, cache, setCache }: WordDefinitionProps) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

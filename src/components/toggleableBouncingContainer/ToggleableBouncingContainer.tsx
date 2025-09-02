@@ -15,10 +15,10 @@ import { useBallCollisions } from "../../hooks/useBallCollisions";
 import type { ToggleableBouncingContainerProps, BallData, FusionItem } from "../../types/types";
 import "./ToggleableBouncingContainer.css";
 
-const ToggleableBouncingContainer: React.FC<ToggleableBouncingContainerProps> = ({
+const ToggleableBouncingContainer = ({
   words,
   images,
-}) => {
+}: ToggleableBouncingContainerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | null>(null);
 

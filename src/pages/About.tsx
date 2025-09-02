@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './Pages.css';
 
-const About: React.FC = () => {
+const About = () => {
   return (
     <div className="page-container">
       <div className="page-content">
@@ -30,7 +29,7 @@ const About: React.FC = () => {
               </div>
               <div className="step">
                 <h3>2. Automatic Processing</h3>
-                <p>Our system automatically underlines each word, preparing it for visual enhancement.</p>
+                <p>Our system automatically underlines each word in real-time, preparing it for visual enhancement.</p>
               </div>
               <div className="step">
                 <h3>3. Visual Discovery</h3>
@@ -47,10 +46,10 @@ const About: React.FC = () => {
             <h2>How It Works</h2>
             <p>Our technology seamlessly integrates multiple services to create a smooth learning experience:</p>
             <ul>
-              <li><strong>Text Processing:</strong> Advanced algorithms identify and prepare individual words for enhancement</li>
+              <li><strong>Text Processing:</strong> Advanced algorithms identify and prepare individual words for enhancement in real-time</li>
               <li><strong>Wikipedia Integration:</strong> Direct access to millions of educational images and resources</li>
               <li><strong>Smart Fallbacks:</strong> Reliable image sources when Wikipedia content isn't available</li>
-              <li><strong>Real-time Performance:</strong> Instant image loading for smooth user experience</li>
+              <li><strong>Real-time Privacy:</strong> User text is never permanently stored and remains private</li>
             </ul>
           </section>
 
@@ -71,7 +70,7 @@ const About: React.FC = () => {
               </div>
               <div className="value-item">
                 <h3>Privacy</h3>
-                <p>Your learning journey is private - we don't store your text or track your usage.</p>
+                <p>Your learning journey is private - all text is processed in real-time and never stored.</p>
               </div>
             </div>
           </section>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { type WikimediaImage } from '../../services/WikiService';
 import WordDefinition from '../wordDefinition/WordDefinition';
 import './PicsDefWindow.css';
@@ -12,7 +12,7 @@ interface DefinitionCache {
   [word: string]: string | null;
 }
 
-const PicsDefWindow: React.FC<PicsDefWindowProps> = ({ word, images }) => {
+const PicsDefWindow = ({ word, images }: PicsDefWindowProps) => {
   const [definitionCache, setDefinitionCache] = useState<DefinitionCache>({});
   const containerRef = useRef<HTMLDivElement>(null);
 

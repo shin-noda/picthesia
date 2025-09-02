@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TextForm from '../components/textForm/TextForm';
 import ProcessedText from '../components/processedText/ProcessedText';
 
-const Home: React.FC = () => {
+const Home = () => {
     const [submittedText, setSubmittedText] = useState('');
     const [resetCounter,] = useState(0);
   
