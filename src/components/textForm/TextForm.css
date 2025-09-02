@@ -72,6 +72,24 @@
   text-align: center;
 }
 
+/* Submit button */
+.submit-button.fusion {
+  display: block;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f6b365 0%, #fda085 100%); /* soft orange gradient */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
 .submit-button:hover:not(.disabled) {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);

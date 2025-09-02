@@ -15,7 +15,13 @@ const Home = ({ submittedText, setSubmittedText, resetCounter }: HomeProps) => {
 
   return (
     <main className="app-main">
-      <TextForm onSubmit={handleTextSubmit} resetKey={resetCounter} maxWords={100} />
+      <TextForm
+        onSubmit={handleTextSubmit}
+        resetKey={resetCounter}
+        maxWords={100}
+        submitLabel={"Generate Picthesia"}
+        variant={'home'}
+      />
       <ProcessedText text={submittedText} />
     </main>
   );
