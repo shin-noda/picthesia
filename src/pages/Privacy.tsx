@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './Pages.css';
 
-const Privacy: React.FC = () => {
+const Privacy = () => {
   return (
     <div className="page-container">
       <div className="page-content">
@@ -19,7 +18,7 @@ const Privacy: React.FC = () => {
             <h2>Information We Collect</h2>
             <p>Picthesia is committed to protecting your privacy. We collect minimal information necessary to provide our service:</p>
             <ul>
-              <li><strong>Text Input:</strong> The text you submit to generate images</li>
+              <li><strong>Text Input:</strong> The text you submit to generate images (processed in real-time, not stored permanently)</li>
               <li><strong>Usage Data:</strong> How you interact with our service</li>
               <li><strong>Technical Data:</strong> Browser type, device information, and IP address</li>
             </ul>
@@ -60,11 +59,11 @@ const Privacy: React.FC = () => {
             <h2>Your Rights</h2>
             <p>You have the right to:</p>
             <ul>
-              <li>Access any personal information we hold about you</li>
-              <li>Request correction of inaccurate information</li>
-              <li>Request deletion of your personal information</li>
+              <li>Understand how your information is used</li>
+              <li>Request deletion of any temporary data associated with your usage</li>
               <li>Withdraw consent for data processing</li>
             </ul>
+            <p>Since Picthesia does not permanently store personal information, requests for access or correction are not applicable.</p>
           </section>
         </div>
       </div>

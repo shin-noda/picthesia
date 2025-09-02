@@ -1,4 +1,3 @@
-import React from "react";
 import "./BallsFuseToggle.css";
 
 interface BallsFuseToggleProps {
@@ -6,10 +5,10 @@ interface BallsFuseToggleProps {
   setFusionEnabled: (value: boolean) => void;
 }
 
-const BallsFuseToggle: React.FC<BallsFuseToggleProps> = ({
+const BallsFuseToggle = ({
   fusionEnabled,
   setFusionEnabled,
-}) => {
+}: BallsFuseToggleProps) => {
   return (
     <div className="balls-fuse-toggle">
       <span className="balls-fuse-toggle-text">Enable Fusion (fuse 2 balls max)</span>

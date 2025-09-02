@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import TextForm from "../components/textForm/TextForm";
 import ToggleableBouncingContainer from "../components/toggleableBouncingContainer/ToggleableBouncingContainer";
 import { WikipediaService, type WikimediaImage } from "../services/WikiService";
 
-const Fusion: React.FC = () => {
+const Fusion = () => {
   const [submittedText, setSubmittedText] = useState("");
   const [resetCounter, ] = useState(0);
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});

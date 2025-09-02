@@ -1,5 +1,4 @@
 // /components/fusionListBoard/FusionListBoard.tsx
-import React from "react";
 import "./FusionListBoard.css";
 import type { FusionItem } from "../../types/types";
 
@@ -7,7 +6,7 @@ interface FusionListBoardProps {
   fusionList: FusionItem[];
 }
 
-const FusionListBoard: React.FC<FusionListBoardProps> = ({ fusionList }) => {
+const FusionListBoard = ({ fusionList }: FusionListBoardProps) => {
   if (!fusionList.length) return null;
 
   // Deduplicate by word1+word2, keep the latest fusion

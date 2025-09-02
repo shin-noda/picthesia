@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // pages
@@ -17,7 +16,7 @@ import Footer from '../footer/Footer';
 // css
 import './App.css';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <Router>
       <div className="app">

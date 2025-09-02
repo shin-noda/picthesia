@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { WikipediaService, type WikimediaImage } from '../../services/WikiService';
 import PicsDefWindow from '../picsDefWindow/PicsDefWindow';
 import './ProcessedText.css';
@@ -7,7 +7,7 @@ interface ProcessedTextProps {
   text: string;
 }
 
-const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
+const ProcessedText = ({ text }: ProcessedTextProps) => {
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});
   const [, setLoadingWords] = useState<Record<string, boolean>>({});
 

@@ -7,7 +7,7 @@ interface TextFormProps {
   maxWords?: number; // NEW: allows parent to control max words
 }
 
-const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey, maxWords = 100 }) => {
+const TextForm = ({ onSubmit, resetKey, maxWords = 100 }: TextFormProps) => {
   const [text, setText] = useState('');
 
   // whenever resetKey changes, clear the input

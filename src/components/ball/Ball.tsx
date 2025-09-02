@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { BallData } from "../../types/types";
 import "./Ball.css";
 
@@ -7,7 +7,7 @@ export interface BallProps {
   showPic: boolean;
 }
 
-const Ball: React.FC<BallProps> = ({ ball, showPic }) => {
+const Ball = ({ ball, showPic }: BallProps) => {
   const [animate, setAnimate] = useState(false);
 
   // Trigger pop animation on mount

@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './Pages.css';
 
-const Terms: React.FC = () => {
+const Terms = () => {
   return (
     <div className="page-container">
       <div className="page-content">
@@ -17,14 +16,14 @@ const Terms: React.FC = () => {
         <div className="page-body">
           <section>
             <h2>Acceptance of Terms</h2>
-            <p>By accessing and using Picthesia, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+            <p>By accessing and using Picthesia, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree, please do not use this service.</p>
           </section>
 
           <section>
             <h2>Description of Service</h2>
             <p>Picthesia is an educational tool that transforms text into visual learning experiences by:</p>
             <ul>
-              <li>Processing user-submitted text and underlining individual words</li>
+              <li>Processing user-submitted text in real-time and underlining individual words</li>
               <li>Providing relevant images from Wikipedia when hovering over underlined words</li>
               <li>Offering fallback images when Wikipedia content is unavailable</li>
               <li>Creating an interactive learning environment for educational purposes</li>
@@ -50,7 +49,7 @@ const Terms: React.FC = () => {
               <li><strong>Wikipedia Content:</strong> Images and content from Wikipedia are subject to their respective licenses and terms</li>
               <li><strong>User Content:</strong> Text you submit is processed in real-time and not permanently stored</li>
               <li><strong>Service Content:</strong> Picthesia's interface and functionality are protected by applicable copyright laws</li>
-              <li><strong>Third-Party Services:</strong> We integrate with external services that have their own terms of use</li>
+              <li><strong>Third-Party Services:</strong> External services have their own terms of use</li>
             </ul>
           </section>
 
@@ -85,6 +84,16 @@ const Terms: React.FC = () => {
               <li>Continued use of the service constitutes acceptance of new terms</li>
               <li>Major changes will be communicated through the service or email</li>
               <li>Users are responsible for reviewing terms regularly</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Data Privacy Note</h2>
+            <p>Picthesia processes your text input in real-time and does not permanently store personal information. By using the service, you acknowledge that:</p>
+            <ul>
+              <li>Requests to access or correct submitted text are not applicable</li>
+              <li>Temporary data is used solely for generating images and interactive content</li>
+              <li>All external services have their own privacy and terms policies</li>
             </ul>
           </section>
         </div>
