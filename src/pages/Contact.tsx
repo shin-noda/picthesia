@@ -18,13 +18,28 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // For now, just log the form data
-    console.log('Contact form submitted:', formData);
-    alert('Thank you for your message! We\'ll get back to you soon.');
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+
+    try {
+      const response = await fetch('https://formspree.io/f/xldwwyqq', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: new URLSearchParams(formData)
+      });
+
+      if (response.ok) {
+        alert("Thank you for your message! We'll get back to you soon.");
+        setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
+      } else {
+        alert("Oops! There was a problem submitting your form.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Oops! There was a problem submitting your form.");
+    }
   };
 
   return (
