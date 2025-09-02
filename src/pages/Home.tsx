@@ -1,22 +1,21 @@
-import { useState } from 'react';
 import TextForm from '../components/textForm/TextForm';
 import ProcessedText from '../components/processedText/ProcessedText';
+import './Pages.css';
 
-const Home = () => {
-    const [submittedText, setSubmittedText] = useState('');
-    const [resetCounter,] = useState(0);
-  
-    const handleTextSubmit = (text: string) => {
-      setSubmittedText(text);
-    };
+interface HomeProps {
+  submittedText: string;
+  setSubmittedText: React.Dispatch<React.SetStateAction<string>>;
+  resetCounter: number;
+}
+
+const Home = ({ submittedText, setSubmittedText, resetCounter }: HomeProps) => {
+  const handleTextSubmit = (text: string) => {
+    setSubmittedText(text);
+  };
 
   return (
     <main className="app-main">
-      <TextForm
-        onSubmit={handleTextSubmit}
-        resetKey={resetCounter}
-        maxWords={100}
-      />
+      <TextForm onSubmit={handleTextSubmit} resetKey={resetCounter} maxWords={100} />
       <ProcessedText text={submittedText} />
     </main>
   );
