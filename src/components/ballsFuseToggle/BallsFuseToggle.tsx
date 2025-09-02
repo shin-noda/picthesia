@@ -12,7 +12,7 @@ const BallsFuseToggle: React.FC<BallsFuseToggleProps> = ({
 }) => {
   return (
     <div className="balls-fuse-toggle">
-      <span className="balls-fuse-toggle-text">Enable Fusion</span>
+      <span className="balls-fuse-toggle-text">Enable Fusion (fuse 2 balls max)</span>
       <label className="balls-fuse-toggle-label">
         <input
           type="checkbox"

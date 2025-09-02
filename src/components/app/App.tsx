@@ -1,17 +1,36 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// pages
 import Home from '../../pages/Home';
 import Privacy from '../../pages/Privacy';
 import Terms from '../../pages/Terms';
 import About from '../../pages/About';
 import Contact from '../../pages/Contact';
+
+// components
+import Header from '../header/Header';
+import Navbar from '../navbar/Navbar';
 import Footer from '../footer/Footer';
+
+// css
 import './App.css';
 
 const App: React.FC = () => {
   return (
     <Router>
       <div className="app">
+
+        <Header />
+
+        <Navbar
+          links={[
+            { label: "Home", to: "/" },
+            { label: "Fusion Balls", to: "/fusion" },
+            { label: "Tournament Mode", to: "/tournament" },
+          ]}
+        />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/privacy" element={<Privacy />} />
@@ -19,6 +38,7 @@ const App: React.FC = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
+
         <Footer />
       </div>
     </Router>
