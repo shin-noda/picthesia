@@ -3,11 +3,22 @@ import TextForm from "../components/textForm/TextForm";
 import ToggleableBouncingContainer from "../components/toggleableBouncingContainer/ToggleableBouncingContainer";
 import { WikipediaService, type WikimediaImage } from "../services/WikiService";
 
-const Fusion = () => {
-  const [submittedText, setSubmittedText] = useState("");
-  const [resetCounter, ] = useState(0);
+interface FusionProps {
+  submittedText: string;
+  setSubmittedText: (text: string) => void;
+  resetCounter: number;
+}
+
+const Fusion = ({ submittedText, setSubmittedText, resetCounter }: FusionProps) => {
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});
   const [, setLoadingWords] = useState<Record<string, boolean>>({});
+
+  // Reset images and loading whenever resetCounter changes
+  useEffect(() => {
+    setImages({});
+    setLoadingWords({});
+    setSubmittedText(""); // Clear text when resetCounter increments
+  }, [resetCounter, setSubmittedText]);
 
   const handleTextSubmit = (text: string) => {
     setSubmittedText(text);
@@ -58,7 +69,7 @@ const Fusion = () => {
     <main className="app-main">
       <TextForm
         onSubmit={handleTextSubmit}
-        resetKey={resetCounter}
+        resetKey={resetCounter} // Reset the form
         maxWords={16}
       />
 
