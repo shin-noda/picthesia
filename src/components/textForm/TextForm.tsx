@@ -3,14 +3,22 @@ import './TextForm.css';
 
 interface TextFormProps {
   onSubmit: (text: string) => void;
-  resetKey?: number; // prop to reset the form when it changes
-  maxWords?: number; // NEW: allows parent to control max words
+  resetKey?: number;            // prop to reset the form when it changes
+  maxWords?: number;            // allows parent to control max words
+  submitLabel?: string;         // allows parent to set button text
+  variant?: 'home' | 'fusion';  // style variant
 }
 
-const TextForm = ({ onSubmit, resetKey, maxWords = 100 }: TextFormProps) => {
+const TextForm = ({
+  onSubmit,
+  resetKey,
+  maxWords = 100,
+  submitLabel = 'Generate Picthesia', // default value
+  variant = 'home',                   // default variant
+}: TextFormProps) => {
   const [text, setText] = useState('');
 
-  // whenever resetKey changes, clear the input
+  // Reset text when resetKey changes
   useEffect(() => {
     setText('');
   }, [resetKey]);
@@ -21,7 +29,6 @@ const TextForm = ({ onSubmit, resetKey, maxWords = 100 }: TextFormProps) => {
     if (words.filter(Boolean).length <= maxWords) {
       setText(inputText);
     } else {
-      // optionally truncate to max words
       setText(words.slice(0, maxWords).join(' '));
     }
   };
@@ -36,7 +43,7 @@ const TextForm = ({ onSubmit, resetKey, maxWords = 100 }: TextFormProps) => {
   const wordCount = text.trim() ? text.trim().split(/\s+/).filter(Boolean).length : 0;
 
   return (
-    <div className="text-form">
+    <div className={`text-form ${variant}`}>
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <textarea
@@ -51,8 +58,8 @@ const TextForm = ({ onSubmit, resetKey, maxWords = 100 }: TextFormProps) => {
             {wordCount}/{maxWords} words
           </div>
         </div>
-        <button type="submit" className="submit-button">
-          Generate Picthesia
+        <button type="submit" className={`submit-button ${variant}`}>
+          {submitLabel}
         </button>
       </form>
     </div>
