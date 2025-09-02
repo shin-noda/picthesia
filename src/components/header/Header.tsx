@@ -2,15 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-interface HeaderProps {
-  onClick?: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ onClick }) => {
+const Header: React.FC = () => {
   return (
     <header className="app-header">
       <h1>
-        <Link to="/" className="header-link" onClick={onClick}>
+        <Link to="/" className="header-link">
           Picthesia
         </Link>
       </h1>

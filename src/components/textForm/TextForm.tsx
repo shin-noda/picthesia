@@ -7,7 +7,7 @@ interface TextFormProps {
   resetKey?: number;
 }
 
-const MAX_WORDS = 250;
+const MAX_WORDS = 100;
 
 const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey }) => {
   const [text, setText] = useState('');
