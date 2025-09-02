@@ -3,13 +3,11 @@ import './TextForm.css';
 
 interface TextFormProps {
   onSubmit: (text: string) => void;
-  // prop to reset the form when it changes
-  resetKey?: number;
+  resetKey?: number; // prop to reset the form when it changes
+  maxWords?: number; // NEW: allows parent to control max words
 }
 
-const MAX_WORDS = 100;
-
-const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey }) => {
+const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey, maxWords = 100 }) => {
   const [text, setText] = useState('');
 
   // whenever resetKey changes, clear the input
@@ -20,11 +18,11 @@ const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputText = e.target.value;
     const words = inputText.split(/\s+/); // split by spaces, tabs, newlines
-    if (words.filter(Boolean).length <= MAX_WORDS) {
+    if (words.filter(Boolean).length <= maxWords) {
       setText(inputText);
     } else {
       // optionally truncate to max words
-      setText(words.slice(0, MAX_WORDS).join(' '));
+      setText(words.slice(0, maxWords).join(' '));
     }
   };
 
@@ -44,13 +42,13 @@ const TextForm: React.FC<TextFormProps> = ({ onSubmit, resetKey }) => {
           <textarea
             value={text}
             onChange={handleChange}
-            placeholder={`Enter your text here... (max ${MAX_WORDS} words)`}
+            placeholder={`Enter your text here... (max ${maxWords} words)`}
             className="text-input"
             rows={4}
             required
           />
           <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>
-            {wordCount}/{MAX_WORDS} words
+            {wordCount}/{maxWords} words
           </div>
         </div>
         <button type="submit" className="submit-button">

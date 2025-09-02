@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // pages
 import Home from '../../pages/Home';
+import Fusion from '../../pages/Fusion';
 import Privacy from '../../pages/Privacy';
 import Terms from '../../pages/Terms';
 import About from '../../pages/About';
@@ -27,12 +28,12 @@ const App: React.FC = () => {
           links={[
             { label: "Home", to: "/" },
             { label: "Fusion Balls", to: "/fusion" },
-            { label: "Tournament Mode", to: "/tournament" },
           ]}
         />
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/fusion" element={<Fusion />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/about" element={<About />} />

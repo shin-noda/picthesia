@@ -12,7 +12,11 @@ const Home: React.FC = () => {
 
   return (
     <main className="app-main">
-      <TextForm onSubmit={handleTextSubmit} resetKey={resetCounter} />
+      <TextForm
+        onSubmit={handleTextSubmit}
+        resetKey={resetCounter}
+        maxWords={100}
+      />
       <ProcessedText text={submittedText} />
     </main>
   );
