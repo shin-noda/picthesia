@@ -51,11 +51,24 @@ export const useFusionQueue = (
           // 3. Update placeholder ball with actual word and image
           setBalls((prev) =>
             prev.map((b) =>
-              b.id === item.id ? { ...b, word: trimmedWord, imgUrl } : b
+              b.id === item.id
+                ? { ...b, word: trimmedWord, imgUrl }
+                : b
             )
           );
 
-          // 4. Update Fusion List with the actual word & image
+          // 4. Keep the shimmer visible for a short duration, then allow collisions
+          setTimeout(() => {
+            setBalls((prev) =>
+              prev.map((b) =>
+                b.id === item.id
+                  ? { ...b, isProcessing: false, isSimmering: false }
+                  : b
+              )
+            );
+          }, 500); // 0.5s shimmer before collisions re-enable
+
+          // 5. Update Fusion List with the actual word & image
           if (setFusionList) {
             setFusionList((prev) =>
               prev.map((f) =>
@@ -66,7 +79,7 @@ export const useFusionQueue = (
             );
           }
 
-          // Add to completed fusions Set and log it
+          // 6. Add to completed fusions Set
           const key = `${item.word1}+${item.word2}`;
           completedFusionSetRef.add(key);
           
