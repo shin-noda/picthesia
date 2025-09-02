@@ -54,7 +54,18 @@ const App = () => {
               />
             }
           />
-          <Route path="/fusion" element={<Fusion />} />
+          
+          <Route
+            path="/fusion"
+            element={
+              <Fusion
+                submittedText={submittedText}
+                setSubmittedText={setSubmittedText}
+                resetCounter={resetCounter}
+              />
+            }
+          />
+
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/about" element={<About />} />
