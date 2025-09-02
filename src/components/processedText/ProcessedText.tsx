@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { WikipediaService, type WikimediaImage } from '../../services/WikiService';
 import PicsDefWindow from '../picsDefWindow/PicsDefWindow';
-import ToggleableBouncingContainer from '../toggleableBouncingContainer/ToggleableBouncingContainer';
 import './ProcessedText.css';
 
 interface ProcessedTextProps {
@@ -69,8 +68,6 @@ const ProcessedText: React.FC<ProcessedTextProps> = ({ text }) => {
           ))}
         </div>
       </div>
-
-      <ToggleableBouncingContainer words={words} images={images} />
     </>
   );
 };

@@ -11,10 +11,15 @@ export interface BallData {
   size: number;
   hasFused: boolean;
   isProcessing?: boolean;
-  isSimmering?:boolean;
+  isSimmering?: boolean;
 }
 
 export interface ToggleableBouncingContainerProps {
+  words: string[];
+  images: Record<string, WikimediaImage[]>;
+}
+
+export interface LadderContainerProps {
   words: string[];
   images: Record<string, WikimediaImage[]>;
 }
