@@ -21,35 +21,41 @@ const About = () => {
 
           <section>
             <h2>What We Do</h2>
-            <p>Picthesia is an innovative educational tool that transforms plain text into an interactive visual learning experience. Here's how it works:</p>
+            <p>Picthesia transforms plain text into an interactive visual learning experience. Here's how it works:</p>
             <div className="process-steps">
               <div className="step">
                 <h3>1. Input Text</h3>
-                <p>Simply type or paste any text you want to learn about - from simple sentences to complex paragraphs.</p>
+                <p>Type or paste any text you want to explore - from simple sentences to complex paragraphs.</p>
               </div>
+
               <div className="step">
-                <h3>2. Automatic Processing</h3>
-                <p>Our system automatically underlines each word in real-time, preparing it for visual enhancement.</p>
+                <h3>2. Automatic Underlining</h3>
+                <p>Each word is automatically underlined in real-time, ready for visual enhancement.</p>
               </div>
+
               <div className="step">
                 <h3>3. Visual Discovery</h3>
-                <p>Hover over any underlined word to instantly see relevant images from Wikipedia's vast knowledge base.</p>
+                <p>Hover over any underlined word to see a relevant image from our wide-ranging educational sources. If an image isn’t available, a fallback ensures every word gets representation.</p>
               </div>
+
               <div className="step">
                 <h3>4. Enhanced Learning</h3>
-                <p>Connect words with visual representations, making learning more engaging and memorable.</p>
+                <p>Connect words with visuals to make learning more engaging and memorable.</p>
+              </div>
+
+              <div className="step">
+                <h3>5. Fusion Feature</h3>
+                <p>Picthesia also offers a fun Fusion feature powered by Gemini AI, which combines two words into a creative new word for educational exploration.</p>
               </div>
             </div>
           </section>
 
           <section>
             <h2>How It Works</h2>
-            <p>Our technology seamlessly integrates multiple services to create a smooth learning experience:</p>
             <ul>
-              <li><strong>Text Processing:</strong> Advanced algorithms identify and prepare individual words for enhancement in real-time</li>
-              <li><strong>Wikipedia Integration:</strong> Direct access to millions of educational images and resources</li>
-              <li><strong>Smart Fallbacks:</strong> Reliable image sources when Wikipedia content isn't available</li>
-              <li><strong>Real-time Privacy:</strong> User text is never permanently stored and remains private</li>
+              <li><strong>Text Processing:</strong> Algorithms identify words for enhancement in real-time</li>
+              <li><strong>Image Sources:</strong> Access millions of educational images, with reliable fallbacks if needed</li>
+              <li><strong>Real-time Privacy:</strong> Text is never stored permanently</li>
             </ul>
           </section>
 
@@ -58,42 +64,40 @@ const About = () => {
             <div className="values-grid">
               <div className="value-item">
                 <h3>Accessibility</h3>
-                <p>Education should be available to everyone, regardless of learning style or background.</p>
+                <p>Learning should be available to everyone, regardless of style or background.</p>
               </div>
               <div className="value-item">
                 <h3>Innovation</h3>
-                <p>We constantly explore new ways to make learning more engaging and effective.</p>
+                <p>We explore new ways to make education more engaging and effective.</p>
               </div>
               <div className="value-item">
-                <h3>Quality</h3>
-                <p>We partner with reliable sources like Wikipedia to ensure accurate, high-quality content.</p>
+                <h3>Informative Content</h3>
+                <p>We use trusted sources to ensure educational and informative content.</p>
               </div>
               <div className="value-item">
                 <h3>Privacy</h3>
-                <p>Your learning journey is private - all text is processed in real-time and never stored.</p>
+                <p>Your learning journey is private; all text is processed in real-time and not stored.</p>
               </div>
             </div>
           </section>
 
           <section>
             <h2>Technology</h2>
-            <p>Picthesia is built with modern, reliable technologies:</p>
             <ul>
               <li><strong>Frontend:</strong> React with TypeScript for robust, maintainable code</li>
-              <li><strong>APIs:</strong> Wikipedia MediaWiki API for comprehensive image access</li>
-              <li><strong>Design:</strong> Responsive design that works on all devices</li>
-              <li><strong>Performance:</strong> Optimized for fast, smooth user experience</li>
+              <li><strong>APIs:</strong> Educational image sources and Gemini AI for fusion</li>
+              <li><strong>Design:</strong> Responsive interface that works on all devices</li>
+              <li><strong>Performance:</strong> Optimized for fast, smooth experience</li>
             </ul>
           </section>
 
           <section>
             <h2>Get Involved</h2>
-            <p>We're passionate about making education better for everyone. Here's how you can be part of our journey:</p>
             <ul>
-              <li><strong>Use Picthesia:</strong> Try it with your own text and see how it enhances your learning</li>
-              <li><strong>Share Feedback:</strong> Tell us how we can improve and what features you'd like to see</li>
-              <li><strong>Spread the Word:</strong> Share Picthesia with educators, students, and learners</li>
-              <li><strong>Stay Updated:</strong> Follow our progress as we add new features and improvements</li>
+              <li><strong>Use Picthesia:</strong> Explore your own text visually</li>
+              <li><strong>Share Feedback:</strong> Tell us how we can improve</li>
+              <li><strong>Spread the Word:</strong> Share with educators and learners</li>
+              <li><strong>Stay Updated:</strong> Follow our progress as we enhance features</li>
             </ul>
           </section>
         </div>

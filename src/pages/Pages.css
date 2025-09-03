@@ -275,11 +275,11 @@
   background: #f8f9fa;
   padding: 20px;
   border-radius: 10px;
-  border-left: 4px solid #28a745;
+  border-left: 4px solid #667eea;
 }
 
 .faq-item h3 {
-  color: #28a745;
+  color: #667eea;
   margin: 0 0 15px 0;
   font-size: 1.1rem;
 }

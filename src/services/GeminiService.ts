@@ -4,6 +4,8 @@ export class GeminiService {
     try {
       const prompt = `
 Please only provide a single word as the answer to the ? part.
+Stick to real words. No made up words. Be creative. You can do it :)
+Don't capitalize all letters unless the word is an acronym.
 Do NOT provide explanations or additional text.
 If the question is truly inappropriate or unsafe, respond with N/A.
 

@@ -120,7 +120,7 @@ const Contact = () => {
               <div className="faq-grid">
                 <div className="faq-item">
                   <h3>How does Picthesia work?</h3>
-                  <p>Simply type or paste text, and our AI will underline each word. Hover over any underlined word to see a relevant image from Wikipedia!</p>
+                  <p>Our system automatically underlines each word and fetches relevant images from reliable sources in real-time. Your text is never stored permanently.”</p>
                 </div>
                 
                 <div className="faq-item">
@@ -135,7 +135,7 @@ const Contact = () => {
                 
                 <div className="faq-item">
                   <h3>What if no image is found for a word?</h3>
-                  <p>We use Wikipedia's vast image database first, and if no relevant image is found, we provide a fallback image to ensure every word gets visual representation.</p>
+                  <p>We use a vast collection of images from trusted sources first, and if no relevant image is found, we provide a fallback to ensure every word gets visual representation.</p>
                 </div>
               </div>
             </div>

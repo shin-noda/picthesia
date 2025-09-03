@@ -70,7 +70,7 @@ const Fusion = ({ submittedText, setSubmittedText, resetCounter }: FusionProps) 
       <TextForm
         onSubmit={handleTextSubmit}
         resetKey={resetCounter}
-        maxWords={16}
+        maxWords={8}
         submitLabel={"Generate Fuse Balls"}
         variant={'fusion'}
       />

@@ -24,8 +24,8 @@ const Terms = () => {
             <p>Picthesia is an educational tool that transforms text into visual learning experiences by:</p>
             <ul>
               <li>Processing user-submitted text in real-time and underlining individual words</li>
-              <li>Providing relevant images from Wikipedia when hovering over underlined words</li>
-              <li>Offering fallback images when Wikipedia content is unavailable</li>
+              <li>Providing relevant images from reliable online knowledge bases when hovering over underlined words</li>
+              <li>Offering fallback images when primary content sources are unavailable</li>
               <li>Creating an interactive learning environment for educational purposes</li>
             </ul>
           </section>
@@ -36,7 +36,7 @@ const Terms = () => {
             <ul>
               <li>Use the service for educational and lawful purposes only</li>
               <li>Not submit harmful, offensive, or inappropriate content</li>
-              <li>Respect intellectual property rights of Wikipedia and other content providers</li>
+              <li>Respect intellectual property rights of content providers</li>
               <li>Not attempt to disrupt or interfere with the service</li>
               <li>Provide accurate information when using contact forms</li>
             </ul>
@@ -46,7 +46,7 @@ const Terms = () => {
             <h2>Content and Intellectual Property</h2>
             <p>Picthesia respects intellectual property rights:</p>
             <ul>
-              <li><strong>Wikipedia Content:</strong> Images and content from Wikipedia are subject to their respective licenses and terms</li>
+              <li><strong>Source Content:</strong> Images and content from external knowledge sources are subject to their respective licenses and terms</li>
               <li><strong>User Content:</strong> Text you submit is processed in real-time and not permanently stored</li>
               <li><strong>Service Content:</strong> Picthesia's interface and functionality are protected by applicable copyright laws</li>
               <li><strong>Third-Party Services:</strong> External services have their own terms of use</li>
@@ -58,8 +58,8 @@ const Terms = () => {
             <p>We strive to maintain high service availability, but Picthesia is provided "as is" without warranties:</p>
             <ul>
               <li>Service may be temporarily unavailable due to maintenance or technical issues</li>
-              <li>We are not responsible for interruptions in Wikipedia API services</li>
-              <li>Image availability depends on Wikipedia's content and our fallback services</li>
+              <li>We are not responsible for interruptions in external image or content APIs</li>
+              <li>Image availability depends on primary sources and our fallback services</li>
               <li>We reserve the right to modify or discontinue the service with notice</li>
             </ul>
           </section>
@@ -93,7 +93,7 @@ const Terms = () => {
             <ul>
               <li>Requests to access or correct submitted text are not applicable</li>
               <li>Temporary data is used solely for generating images and interactive content</li>
-              <li>All external services have their own privacy and terms policies</li>
+              <li>All external services, including Gemini API, have their own privacy and terms policies</li>
             </ul>
           </section>
         </div>

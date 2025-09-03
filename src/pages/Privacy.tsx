@@ -41,6 +41,7 @@ const Privacy = () => {
             <ul>
               <li><strong>Wikipedia API:</strong> To fetch educational images</li>
               <li><strong>Picsum Photos:</strong> For fallback images when Wikipedia doesn't have relevant content</li>
+              <li><strong>Gemini API:</strong> Used to generate creative word combinations and fusions for enhanced learning experiences</li>
             </ul>
             <p>These services have their own privacy policies and data handling practices.</p>
           </section>
