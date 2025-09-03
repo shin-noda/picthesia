@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
+
+// components
 import TextForm from "../components/textForm/TextForm";
 import ToggleableBouncingContainer from "../components/toggleableBouncingContainer/ToggleableBouncingContainer";
+import FusionBackButton from "../components/fusionBackButton/FusionBackButton";
+
+// services
 import { WikipediaService, type WikimediaImage } from "../services/WikiService";
 
 interface FusionProps {
@@ -12,16 +17,21 @@ interface FusionProps {
 const Fusion = ({ submittedText, setSubmittedText, resetCounter }: FusionProps) => {
   const [images, setImages] = useState<Record<string, WikimediaImage[]>>({});
   const [, setLoadingWords] = useState<Record<string, boolean>>({});
+  const [inputVisible, setInputVisible] = useState(true); // track if input should be shown
 
-  // Reset images and loading whenever resetCounter changes
+  // Reset images, loading, and submitted text whenever resetCounter changes
   useEffect(() => {
     setImages({});
     setLoadingWords({});
-    setSubmittedText(""); // Clear text when resetCounter increments
+    setSubmittedText(""); 
+    setInputVisible(true);
   }, [resetCounter, setSubmittedText]);
 
+  // Handle text submission
   const handleTextSubmit = (text: string) => {
+    if (!text.trim()) return;
     setSubmittedText(text);
+    setInputVisible(false); // hide input permanently until back
   };
 
   // Fetch images whenever submittedText changes
@@ -33,6 +43,7 @@ const Fusion = ({ submittedText, setSubmittedText, resetCounter }: FusionProps) 
     }
 
     const words = submittedText.split(/\s+/);
+
     const fetchImages = async () => {
       const newImages: Record<string, WikimediaImage[]> = {};
       const newLoading: Record<string, boolean> = {};
@@ -67,16 +78,34 @@ const Fusion = ({ submittedText, setSubmittedText, resetCounter }: FusionProps) 
 
   return (
     <main className="app-main">
-      <TextForm
-        onSubmit={handleTextSubmit}
-        resetKey={resetCounter}
-        maxWords={8}
-        submitLabel={"Generate Fuse Balls"}
-        variant={'fusion'}
-      />
+      {/* Show input only if visible */}
+      {inputVisible && (
+        <TextForm
+          onSubmit={handleTextSubmit}
+          resetKey={resetCounter}
+          maxWords={8}
+          submitLabel="Generate Fuse Balls"
+          variant="fusion"
+        />
+      )}
 
+      {/* Show balls container if text is submitted */}
       {submittedText && (
-        <ToggleableBouncingContainer words={words} images={images} />
+        <ToggleableBouncingContainer
+          words={words}
+          images={images}
+        />
+      )}
+
+      {/* Show Back button if input is hidden */}
+      {!inputVisible && (
+        <FusionBackButton
+          onBack={() => {
+            setInputVisible(true);
+            setSubmittedText("");
+            setImages({});
+          }}
+        />
       )}
     </main>
   );

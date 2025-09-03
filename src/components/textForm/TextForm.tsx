@@ -49,7 +49,7 @@ const TextForm = ({
           <textarea
             value={text}
             onChange={handleChange}
-            placeholder={`Enter your text here... (max ${maxWords} words)`}
+            placeholder={`Type your words, separated by spaces (max ${maxWords} words)`}
             className="text-input"
             rows={4}
             required

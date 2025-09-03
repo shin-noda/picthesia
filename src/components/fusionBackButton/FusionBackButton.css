@@ -1,0 +1,35 @@
+.back-button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #f6b365 0%, #fda085 100%); /* soft orange gradient */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.back-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .back-button { padding: 12px 20px; font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .back-button { padding: 10px 15px; font-size: 13px; }
+}
